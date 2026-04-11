@@ -16,12 +16,12 @@ import {
 } from 'lucide-react';
 
 const NAV_ITEMS: { id: AppView; label: string; icon: React.ElementType }[] = [
-  { id: 'dashboard', label: '仪表板', icon: LayoutDashboard },
-  { id: 'schedule', label: '日程', icon: CalendarDays },
-  { id: 'progress', label: '进度', icon: TrendingUp },
-  { id: 'collab', label: '协作', icon: Users },
-  { id: 'gpa', label: 'GPA 预测器', icon: GraduationCap },
-  { id: 'integrations', label: '集成', icon: Plug },
+  { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { id: 'schedule', label: 'Schedule', icon: CalendarDays },
+  { id: 'progress', label: 'Progress', icon: TrendingUp },
+  { id: 'collab', label: 'Collaboration', icon: Users },
+  { id: 'gpa', label: 'GPA Predictor', icon: GraduationCap },
+  { id: 'integrations', label: 'Integrations', icon: Plug },
 ];
 
 export default function Index() {
@@ -61,7 +61,7 @@ export default function Index() {
                   style={{ background: 'rgba(79,70,229,0.2)', color: '#4F46E5', border: '1px solid rgba(79,70,229,0.3)' }}>Beta</span>
               </div>
               <div className="hidden md:flex items-center gap-8">
-                {['功能', '日程', '分析', '集成'].map(l => (
+                {['Features', 'Schedule', 'Analytics', 'Integrations'].map(l => (
                   <a key={l} href={`#${l.toLowerCase()}`} className="text-sm transition-colors duration-200"
                     style={{ color: '#64748B' }}
                     onMouseEnter={e => (e.currentTarget.style.color = '#F1F5F9')}
@@ -75,7 +75,7 @@ export default function Index() {
                     className="text-sm font-semibold px-4 py-2 rounded-lg transition-all duration-200 hover:-translate-y-0.5 flex items-center gap-2"
                     style={{ border: '1px solid #1E2D45', color: '#F1F5F9', background: 'transparent' }}>
                     <LogOut size={14} />
-                    登出
+                    Logout
                   </button>
                 ) : (
                   <>
@@ -84,14 +84,14 @@ export default function Index() {
                       className="text-sm font-semibold px-4 py-2 rounded-lg transition-all duration-200 hover:-translate-y-0.5 flex items-center gap-2"
                       style={{ border: '1px solid #1E2D45', color: '#F1F5F9', background: 'transparent' }}>
                       <LogIn size={14} />
-                      登录
+                      Login
                     </button>
                     <button
                       onClick={() => handleAuth('register')}
                       className="text-sm font-semibold px-4 py-2 rounded-lg transition-all duration-200 hover:-translate-y-0.5 flex items-center gap-2"
                       style={{ background: '#4F46E5', color: 'white' }}>
                       <UserPlus size={14} />
-                      注册
+                      Register
                     </button>
                   </>
                 )}
@@ -111,16 +111,16 @@ export default function Index() {
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8"
                 style={{ border: '1px solid #1E2D45', background: '#131929' }}>
                 <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#10B981' }} />
-                <span className="text-xs tracking-wide" style={{ color: '#64748B' }}>AI驱动的学术日程安排 — 现已推出测试版</span>
+                <span className="text-xs tracking-wide" style={{ color: '#64748B' }}>AI-Powered Academic Scheduling — Now in Beta</span>
               </div>
               <h1 className="font-bold text-5xl sm:text-6xl lg:text-7xl leading-tight tracking-tight mb-6">
-                告别临时抱佛脚<br />
+                Stop Cramming.<br />
                 <span style={{ background: 'linear-gradient(to right, #4F46E5, #0EA5E9, #06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                  开始掌握学习
+                  Start Mastering.
                 </span>
               </h1>
               <p className="text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto mb-10" style={{ color: '#64748B' }}>
-                Omniflow 同步您的 Canvas 和 Blackboard 截止日期，构建 AI 优化的学习计划，并跟踪您的进度 — 让您专注于学习，而非后勤事务。
+                Omniflow syncs your Canvas &amp; Blackboard deadlines, builds AI-optimized study plans, and tracks your progress — so you can focus on learning, not logistics.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
                 <button
@@ -128,13 +128,13 @@ export default function Index() {
                   className="px-8 py-3.5 rounded-xl font-semibold text-base transition-all duration-200 hover:-translate-y-0.5 flex items-center gap-2"
                   style={{ background: '#4F46E5', color: 'white', boxShadow: '0 10px 15px -3px rgba(79,70,229,0.3)' }}>
                   <Sparkles size={18} />
-                  免费启动应用
+                  Launch App — Free
                 </button>
                 <button
                   onClick={() => isAuthenticated ? navigate('schedule') : handleAuth('login')}
                   className="px-8 py-3.5 rounded-xl font-semibold text-base transition-all duration-200 flex items-center gap-2"
                   style={{ border: '1px solid #1E2D45', color: '#F1F5F9', background: 'transparent' }}>
-                  查看日程 <ChevronRight size={16} />
+                  View Schedule <ChevronRight size={16} />
                 </button>
               </div>
 
@@ -168,8 +168,8 @@ export default function Index() {
         <section id="features" className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-14">
-              <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#4F46E5' }}>核心功能</p>
-              <h2 className="font-bold text-4xl sm:text-5xl tracking-tight">助您在学期中脱颖而出的<br />全套工具</h2>
+              <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#4F46E5' }}>Core Features</p>
+              <h2 className="font-bold text-4xl sm:text-5xl tracking-tight">Everything you need to<br />ace the semester</h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {/* AI Planning Engine - wide */}
@@ -183,8 +183,8 @@ export default function Index() {
                     <Sparkles size={20} color="#4F46E5" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg mb-1">智能规划引擎</h3>
-                    <p className="text-sm leading-relaxed" style={{ color: '#64748B' }}>围绕您的课程表拖放学习时段。当考试日期变更时，AI 会自动调整您的计划 — 无需手动重新安排。</p>
+                    <h3 className="font-semibold text-lg mb-1">Intelligent Planning Engine</h3>
+                    <p className="text-sm leading-relaxed" style={{ color: '#64748B' }}>Drag-and-drop study sessions around your class schedule. The AI auto-adjusts your plan when exam dates shift — no manual rescheduling needed.</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
@@ -209,8 +209,8 @@ export default function Index() {
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ background: 'rgba(16,185,129,0.2)' }}>
                   <BarChart3 size={20} color="#10B981" />
                 </div>
-                <h3 className="font-semibold text-lg mb-2">GPA 预测器</h3>
-                <p className="text-sm leading-relaxed mb-4" style={{ color: '#64748B' }}>根据记录的学习时间预测您的学期 GPA。及时调整努力程度，避免为时已晚。</p>
+                <h3 className="font-semibold text-lg mb-2">GPA Predictor</h3>
+                <p className="text-sm leading-relaxed mb-4" style={{ color: '#64748B' }}>Forecast your semester GPA based on study hours logged. Adjust effort before it is too late.</p>
                 <div className="rounded-xl p-4" style={{ background: '#0B0F1A', border: '1px solid #1E2D45' }}>
                   <div className="flex justify-between items-end mb-2">
                     <span className="text-xs" style={{ color: '#64748B' }}>Predicted GPA</span>
@@ -234,8 +234,8 @@ export default function Index() {
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ background: 'rgba(6,182,212,0.2)' }}>
                   <TrendingUp size={20} color="#06B6D4" />
                 </div>
-                <h3 className="font-semibold text-lg mb-2">进度热图</h3>
-                <p className="text-sm leading-relaxed mb-4" style={{ color: '#64748B' }}>可视化您整个学期的工作量分布。在倦怠风险发生前发现它们。</p>
+                <h3 className="font-semibold text-lg mb-2">Progress Heatmaps</h3>
+                <p className="text-sm leading-relaxed mb-4" style={{ color: '#64748B' }}>Visualize your workload distribution across the semester. Spot burnout risks before they happen.</p>
                 <div className="grid grid-cols-7 gap-1">
                   {[20, 50, 80, 30, 90, 60, 20, 70, 40, 100, 20, 55, 75, 35].map((op, i) => (
                     <div key={i} className="h-5 rounded" style={{ background: `rgba(6,182,212,${op / 100})`, border: op < 30 ? '1px solid #1E2D45' : 'none' }} />
@@ -253,8 +253,8 @@ export default function Index() {
                     <Users size={20} color="#0EA5E9" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg mb-1">协作中心</h3>
-                    <p className="text-sm leading-relaxed" style={{ color: '#64748B' }}>用于小组项目的共享任务板，带有 @ 提及通知。实时更新确保团队在责任和截止日期上保持一致。</p>
+                    <h3 className="font-semibold text-lg mb-1">Collaboration Hub</h3>
+                    <p className="text-sm leading-relaxed" style={{ color: '#64748B' }}>Shared task boards for group projects with @mention notifications. Real-time updates keep your team aligned on responsibilities and deadlines.</p>
                   </div>
                 </div>
                 <div className="space-y-2">
@@ -280,8 +280,8 @@ export default function Index() {
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ background: 'rgba(245,158,11,0.2)' }}>
                   <BarChart3 size={20} color="#F59E0B" />
                 </div>
-                <h3 className="font-semibold text-lg mb-2">周报告</h3>
-                <p className="text-sm leading-relaxed mb-4" style={{ color: '#64748B' }}>比较计划与实际学习时间。识别时间管理差距并及早调整。</p>
+                <h3 className="font-semibold text-lg mb-2">Weekly Reports</h3>
+                <p className="text-sm leading-relaxed mb-4" style={{ color: '#64748B' }}>Compare planned vs. actual study hours. Identify time management gaps and course-correct early.</p>
                 <div className="space-y-2">
                   {[{ label: 'Planned', pct: '80%', val: '16h', color: 'rgba(79,70,229,0.6)' }, { label: 'Actual', pct: '55%', val: '11h', color: '#F59E0B' }].map(r => (
                     <div key={r.label} className="flex items-center gap-2">
@@ -303,14 +303,14 @@ export default function Index() {
           <div className="max-w-screen-xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
-                <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#4F46E5' }}>智能日程安排</p>
-                <h2 className="font-bold text-4xl sm:text-5xl tracking-tight mb-6">您的一周，<br />智能规划。</h2>
-                <p className="leading-relaxed mb-8" style={{ color: '#64748B' }}>Omniflow 分析您的课程难度、能量模式和现有承诺，推荐最佳学习时段。拖放即可完成 — AI 处理其余部分。</p>
+                <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#4F46E5' }}>Smart Scheduling</p>
+                <h2 className="font-bold text-4xl sm:text-5xl tracking-tight mb-6">Your week,<br />intelligently planned.</h2>
+                <p className="leading-relaxed mb-8" style={{ color: '#64748B' }}>Omniflow analyzes your course difficulty, energy patterns, and existing commitments to recommend optimal study blocks. Drag, drop, and done — the AI handles the rest.</p>
                 <ul className="space-y-4">
                   {[
-                    { title: '自动同步 Canvas 和 Blackboard', desc: '所有截止日期自动集中管理 — 无需手动输入。' },
-                    { title: '考试变更时动态重新安排', desc: '教授更改期中考试时间？您的计划立即更新。' },
-                    { title: '导出到 Google 日历', desc: '无缝查看学术截止日期和个人事件。' },
+                    { title: 'Auto-sync from Canvas & Blackboard', desc: 'All deadlines centralized automatically — no manual entry.' },
+                    { title: 'Dynamic rescheduling on exam changes', desc: 'Professor moved the midterm? Your plan updates instantly.' },
+                    { title: 'Export to Google Calendar', desc: 'View academic deadlines alongside personal events seamlessly.' },
                   ].map(item => (
                     <li key={item.title} className="flex items-start gap-3">
                       <CheckCircle2 size={18} color="#10B981" className="flex-shrink-0 mt-0.5" />
@@ -325,19 +325,19 @@ export default function Index() {
                   onClick={() => isAuthenticated ? navigate('schedule') : handleAuth('login')}
                   className="mt-8 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5 flex items-center gap-2"
                   style={{ background: '#4F46E5', color: 'white' }}>
-                  打开日程 <ChevronRight size={16} />
+                  Open Schedule <ChevronRight size={16} />
                 </button>
               </div>
               <div className="rounded-2xl overflow-hidden" style={{ background: '#131929', border: '1px solid #1E2D45' }}>
                 <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: '1px solid #1E2D45' }}>
-                  <h4 className="font-semibold text-sm">本周 — 3月14日至20日</h4>
+                  <h4 className="font-semibold text-sm">This Week — March 14–20</h4>
                 </div>
                 <div className="p-4 space-y-2">
                   {[
-                    { time: '9:00 AM', title: '微积分 III — 学习时段', sub: '2小时 · AI 推荐', color: '#4F46E5' },
-                    { time: '11:30 AM', title: '有机化学 — 复习', sub: '1.5小时 · 3天后考试', color: '#06B6D4' },
-                    { time: '2:00 PM', title: '论文 — 第3章草稿', sub: '3小时 · 周五截止', color: '#F59E0B' },
-                    { time: '5:30 PM', title: '小组项目 — 数据分析', sub: '1小时 · 与 @sam, @maya 共享', color: '#10B981' },
+                    { time: '9:00 AM', title: 'Calculus III — Study Block', sub: '2h · AI Recommended', color: '#4F46E5' },
+                    { time: '11:30 AM', title: 'Organic Chemistry — Review', sub: '1.5h · Exam in 3 days', color: '#06B6D4' },
+                    { time: '2:00 PM', title: 'Thesis — Chapter 3 Draft', sub: '3h · Milestone due Friday', color: '#F59E0B' },
+                    { time: '5:30 PM', title: 'Group Project — Data Analysis', sub: '1h · Shared with @sam, @maya', color: '#10B981' },
                   ].map(s => (
                     <div key={s.time} className="flex items-center gap-2">
                       <span className="text-xs w-16 flex-shrink-0" style={{ color: '#64748B' }}>{s.time}</span>
@@ -357,31 +357,31 @@ export default function Index() {
         <section id="analytics" className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-14">
-              <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#06B6D4' }}>进度跟踪</p>
-              <h2 className="font-bold text-4xl sm:text-5xl tracking-tight">数据驱动的洞察<br />为每位学生</h2>
+              <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#06B6D4' }}>Progress Tracking</p>
+              <h2 className="font-bold text-4xl sm:text-5xl tracking-tight">Data-driven insights<br />for every student</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 {
-                  title: '本周学习时间', badge: '+12%', badgeColor: '#10B981', badgeBg: 'rgba(16,185,129,0.1)',
-                  main: '23.5', unit: '小时', sub: 'vs. 计划 21小时',
+                  title: 'Study Hours This Week', badge: '+12%', badgeColor: '#10B981', badgeBg: 'rgba(16,185,129,0.1)',
+                  main: '23.5', unit: 'h', sub: 'vs. 21h planned',
                   bars: [40, 65, 50, 80, 100, 70, 30], barColor: '#4F46E5',
                 },
                 {
-                  title: '本月截止日期', badge: '3个即将到来', badgeColor: '#F59E0B', badgeBg: 'rgba(245,158,11,0.1)',
+                  title: 'Deadlines This Month', badge: '3 upcoming', badgeColor: '#F59E0B', badgeBg: 'rgba(245,158,11,0.1)',
                   items: [
-                    { dot: '#EF4444', name: '有机化学期中考试', date: '3月17日 · 3天' },
-                    { dot: '#F59E0B', name: '论文第3章草稿', date: '3月21日 · 7天' },
-                    { dot: '#10B981', name: '计算机科学项目提交', date: '3月28日 · 14天' },
+                    { dot: '#EF4444', name: 'Organic Chem Midterm', date: 'Mar 17 · 3 days' },
+                    { dot: '#F59E0B', name: 'Thesis Chapter 3 Draft', date: 'Mar 21 · 7 days' },
+                    { dot: '#10B981', name: 'CS Project Submission', date: 'Mar 28 · 14 days' },
                   ],
                 },
                 {
-                  title: '论文进度', badge: '按计划进行', badgeColor: '#06B6D4', badgeBg: 'rgba(6,182,212,0.1)',
-                  main: '68', unit: '%', sub: '已起草 42/62 页',
+                  title: 'Thesis Progress', badge: 'On Track', badgeColor: '#06B6D4', badgeBg: 'rgba(6,182,212,0.1)',
+                  main: '68', unit: '%', sub: '42 of 62 pages drafted',
                   chapters: [
-                    { name: '第1章', status: '已完成', pct: 100, color: '#10B981' },
-                    { name: '第2章', status: '已完成', pct: 100, color: '#10B981' },
-                    { name: '第3章', status: '进行中', pct: 40, color: '#F59E0B' },
+                    { name: 'Chapter 1', status: 'Complete', pct: 100, color: '#10B981' },
+                    { name: 'Chapter 2', status: 'Complete', pct: 100, color: '#10B981' },
+                    { name: 'Chapter 3', status: 'In Progress', pct: 40, color: '#F59E0B' },
                   ],
                 },
               ].map((card, ci) => (
@@ -441,17 +441,17 @@ export default function Index() {
         <section id="integrations" className="py-20 px-4 sm:px-6 lg:px-8" style={{ background: 'rgba(19,25,41,0.3)' }}>
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-14">
-              <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#0EA5E9' }}>跨平台集成</p>
-              <h2 className="font-bold text-4xl sm:text-5xl tracking-tight">与您已使用的工具<br />无缝连接</h2>
-              <p className="mt-4 max-w-xl mx-auto" style={{ color: '#64748B' }}>Omniflow 与您的大学 LMS 和个人日历双向集成 — 确保您的学术生活始终保持同步。</p>
+              <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#0EA5E9' }}>Cross-Platform Integration</p>
+              <h2 className="font-bold text-4xl sm:text-5xl tracking-tight">Connects with the tools<br />you already use</h2>
+              <p className="mt-4 max-w-xl mx-auto" style={{ color: '#64748B' }}>Omniflow integrates bidirectionally with your university LMS and personal calendar — so your academic life is always in sync.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {
                 [
-                  { name: 'Canvas LMS', desc: '自动同步作业、测验和考试日期', color: '#4F46E5', hoverColor: 'rgba(79,70,229,0.5)' },
-                  { name: 'Blackboard', desc: '拉取课程材料和截止日期通知', color: '#0EA5E9', hoverColor: 'rgba(14,165,233,0.5)' },
-                  { name: 'Google 日历', desc: '导出学习时段与个人事件一起', color: '#06B6D4', hoverColor: 'rgba(6,182,212,0.5)' },
-                  { name: '顾问仪表板', desc: '顾问通过 LMS 数据监控有风险的学生', color: '#10B981', hoverColor: 'rgba(16,185,129,0.5)' },
+                  { name: 'Canvas LMS', desc: 'Auto-sync assignments, quizzes, and exam dates', color: '#4F46E5', hoverColor: 'rgba(79,70,229,0.5)' },
+                  { name: 'Blackboard', desc: 'Pull course materials and deadline notifications', color: '#0EA5E9', hoverColor: 'rgba(14,165,233,0.5)' },
+                  { name: 'Google Calendar', desc: 'Export study blocks alongside personal events', color: '#06B6D4', hoverColor: 'rgba(6,182,212,0.5)' },
+                  { name: 'Advisor Dashboard', desc: 'Advisors monitor at-risk students via LMS data', color: '#10B981', hoverColor: 'rgba(16,185,129,0.5)' },
                 ].map(int => (
                   <div key={int.name} className="rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1"
                     style={{ background: '#131929', border: '1px solid #1E2D45' }}
@@ -475,17 +475,17 @@ export default function Index() {
             <div className="relative rounded-3xl p-10 sm:p-16 text-center overflow-hidden"
               style={{ background: 'linear-gradient(135deg, rgba(79,70,229,0.2), #131929, rgba(6,182,212,0.1))', border: '1px solid #1E2D45' }}>
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-48 pointer-events-none" style={{ background: 'rgba(79,70,229,0.15)', filter: 'blur(60px)' }} />
-              <p className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: '#4F46E5' }}>立即开始</p>
-              <h2 className="font-bold text-4xl sm:text-5xl tracking-tight mb-6">您的最佳学期<br />从这里开始。</h2>
-              <p className="max-w-lg mx-auto mb-10" style={{ color: '#64748B' }}>加入成千上万的学生，他们已经使用 Omniflow 消除了临时抱佛脚和错过截止日期的问题。</p>
+              <p className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: '#4F46E5' }}>Get Started Today</p>
+              <h2 className="font-bold text-4xl sm:text-5xl tracking-tight mb-6">Your best semester<br />starts here.</h2>
+              <p className="max-w-lg mx-auto mb-10" style={{ color: '#64748B' }}>Join thousands of students who have eliminated last-minute cramming and missed deadlines with Omniflow.</p>
               <button
                   onClick={() => isAuthenticated ? navigate('dashboard') : handleAuth('register')}
                   className="px-8 py-3.5 rounded-xl font-semibold text-base transition-all duration-200 hover:-translate-y-0.5 flex items-center gap-2 mx-auto"
                   style={{ background: '#4F46E5', color: 'white', boxShadow: '0 10px 15px -3px rgba(79,70,229,0.3)' }}>
                   <Zap size={18} />
-                  免费启动 Omniflow
+                  Launch Omniflow Free
                 </button>
-                <p className="text-xs mt-4" style={{ color: '#64748B' }}>学生免费使用 · 包含 Canvas 和 Blackboard 同步 · 无需信用卡</p>
+                <p className="text-xs mt-4" style={{ color: '#64748B' }}>Free for students · Canvas &amp; Blackboard sync included · No credit card</p>
             </div>
           </div>
         </section>
@@ -501,13 +501,13 @@ export default function Index() {
                   </div>
                   <span className="font-bold">Omniflow</span>
                 </div>
-                <p className="text-xs leading-relaxed" style={{ color: '#64748B' }}>为现代学生打造的 AI 驱动学习规划工具。支持 Canvas、Blackboard 等平台。</p>
+                <p className="text-xs leading-relaxed" style={{ color: '#64748B' }}>AI-powered study planning for the modern student. Built for Canvas, Blackboard, and beyond.</p>
               </div>
               {
                 [
-                  { title: '产品', links: ['功能', '集成', '定价', '更新日志'] },
-                  { title: '面向学生', links: ['本科生', '研究生', '学术顾问', '大学'] },
-                  { title: '公司', links: ['关于我们', '博客', '隐私政策', '服务条款'] },
+                  { title: 'Product', links: ['Features', 'Integrations', 'Pricing', 'Changelog'] },
+                  { title: 'For Students', links: ['Undergraduates', 'Graduate Students', 'Academic Advisors', 'Universities'] },
+                  { title: 'Company', links: ['About', 'Blog', 'Privacy', 'Terms'] },
                 ].map(col => (
                   <div key={col.title}>
                     <h5 className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#64748B' }}>{col.title}</h5>
@@ -523,8 +523,8 @@ export default function Index() {
               }
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8" style={{ borderTop: '1px solid #1E2D45' }}>
-              <p className="text-xs" style={{ color: '#64748B' }}>© 2026 Omniflow. 由 Zhang BINGsi 开发。保留所有权利。</p>
-              <p className="text-xs" style={{ color: '#64748B' }}>为拒绝平庸的学生设计。</p>
+              <p className="text-xs" style={{ color: '#64748B' }}>© 2026 Omniflow. Built by Zhang BINGsi. All rights reserved.</p>
+              <p className="text-xs" style={{ color: '#64748B' }}>Designed for students who refuse to settle for average.</p>
             </div>
           </div>
         </footer>
@@ -588,7 +588,7 @@ export default function Index() {
             className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200"
             style={{ color: '#64748B', border: '1px solid #1E2D45' }}>
             <BookOpen size={18} />
-            返回首页
+            Back to Home
           </button>
         </div>
       </aside>

@@ -78,33 +78,33 @@ export default function DashboardView({ onNavigate }: Props) {
 
   const statCards = [
     {
-      label: '学习时间（周）',
-      value: totalStudied.toFixed(1) + '小时',
-      sub: totalPlanned > 0 ? `计划 ${totalPlanned.toFixed(1)}小时` : '未设置计划',
+      label: 'Study Hours (Week)',
+      value: totalStudied.toFixed(1) + 'h',
+      sub: totalPlanned > 0 ? `of ${totalPlanned.toFixed(1)}h planned` : 'No plan set',
       icon: Clock,
       color: '#4F46E5',
       bg: 'rgba(79,70,229,0.15)',
     },
     {
-      label: '完成的学习时段',
+      label: 'Sessions Completed',
       value: `${completedSessions}/${totalSessions}`,
-      sub: totalSessions > 0 ? `完成率 ${Math.round((completedSessions / totalSessions) * 100)}%` : '暂无学习时段',
+      sub: totalSessions > 0 ? `${Math.round((completedSessions / totalSessions) * 100)}% completion rate` : 'No sessions yet',
       icon: CheckCircle2,
       color: '#10B981',
       bg: 'rgba(16,185,129,0.15)',
     },
     {
-      label: '即将到来的截止日期',
+      label: 'Upcoming Deadlines',
       value: upcomingDeadlines.length.toString(),
-      sub: upcomingDeadlines.length > 0 ? `下一个: ${upcomingDeadlines[0]?.title?.slice(0, 20)}...` : '一切顺利！',
+      sub: upcomingDeadlines.length > 0 ? `Next: ${upcomingDeadlines[0]?.title?.slice(0, 20)}...` : 'All clear!',
       icon: AlertCircle,
       color: '#F59E0B',
       bg: 'rgba(245,158,11,0.15)',
     },
     {
-      label: '预测 GPA',
+      label: 'Predicted GPA',
       value: predictedGpa !== null ? predictedGpa.toFixed(2) : 'N/A',
-      sub: gpaEntries.length > 0 ? `基于 ${gpaEntries.length} 门课程` : '添加课程以预测',
+      sub: gpaEntries.length > 0 ? `Based on ${gpaEntries.length} courses` : 'Add courses to predict',
       icon: TrendingUp,
       color: '#06B6D4',
       bg: 'rgba(6,182,212,0.15)',
@@ -126,8 +126,8 @@ export default function DashboardView({ onNavigate }: Props) {
     <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">仪表板</h1>
-        <p className="text-sm mt-1" style={{ color: '#64748B' }}>欢迎回来 — 这是您今天的学术概览。</p>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Dashboard</h1>
+        <p className="text-sm mt-1" style={{ color: '#64748B' }}>Welcome back — here is your academic overview for today.</p>
       </div>
 
       {/* Stat Cards */}
@@ -155,22 +155,22 @@ export default function DashboardView({ onNavigate }: Props) {
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-semibold flex items-center gap-2">
               <CalendarDays size={18} color="#4F46E5" />
-              今日学习时段
+              Today&apos;s Study Sessions
             </h2>
             <button onClick={() => onNavigate('schedule')}
               className="text-xs flex items-center gap-1 transition-colors"
               style={{ color: '#4F46E5' }}>
-              查看全部 <ChevronRight size={14} />
+              View All <ChevronRight size={14} />
             </button>
           </div>
           {todaySessions.length === 0 ? (
             <div className="text-center py-10">
               <CalendarDays size={32} color="#1E2D45" className="mx-auto mb-3" />
-              <p className="text-sm" style={{ color: '#64748B' }}>今天没有安排学习时段</p>
+              <p className="text-sm" style={{ color: '#64748B' }}>No sessions scheduled for today</p>
               <button onClick={() => onNavigate('schedule')}
                 className="mt-3 text-xs px-4 py-2 rounded-lg transition-colors"
                 style={{ background: 'rgba(79,70,229,0.2)', color: '#4F46E5', border: '1px solid rgba(79,70,229,0.3)' }}>
-                添加学习时段
+                Add Session
               </button>
             </div>
           ) : (
@@ -180,7 +180,7 @@ export default function DashboardView({ onNavigate }: Props) {
                   <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: s.completed ? '#10B981' : '#4F46E5' }} />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium truncate">{s.title}</p>
-                    <p className="text-xs" style={{ color: '#64748B' }}>{s.startTime} – {s.endTime} · {s.durationHours}小时</p>
+                    <p className="text-xs" style={{ color: '#64748B' }}>{s.startTime} – {s.endTime} · {s.durationHours}h</p>
                   </div>
                   {s.aiRecommended && (
                     <span className="text-xs px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: 'rgba(79,70,229,0.2)', color: '#4F46E5' }}>
@@ -188,7 +188,7 @@ export default function DashboardView({ onNavigate }: Props) {
                     </span>
                   )}
                   <span className="text-xs flex-shrink-0" style={{ color: s.completed ? '#10B981' : '#64748B' }}>
-                    {s.completed ? '已完成' : '待完成'}
+                    {s.completed ? 'Done' : 'Pending'}
                   </span>
                 </div>
               ))}
@@ -201,18 +201,18 @@ export default function DashboardView({ onNavigate }: Props) {
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-semibold flex items-center gap-2">
               <Target size={18} color="#F59E0B" />
-              即将到来的截止日期
+              Upcoming Deadlines
             </h2>
             <button onClick={() => onNavigate('schedule')}
               className="text-xs flex items-center gap-1"
               style={{ color: '#F59E0B' }}>
-              全部 <ChevronRight size={14} />
+              All <ChevronRight size={14} />
             </button>
           </div>
           {upcomingDeadlines.length === 0 ? (
             <div className="text-center py-10">
               <CheckCircle2 size={32} color="#10B981" className="mx-auto mb-3" />
-              <p className="text-sm" style={{ color: '#64748B' }}>没有即将到来的截止日期！</p>
+              <p className="text-sm" style={{ color: '#64748B' }}>No upcoming deadlines!</p>
             </div>
           ) : (
             <div className="space-y-3">
@@ -227,12 +227,12 @@ export default function DashboardView({ onNavigate }: Props) {
                         <p className="text-xs mt-0.5" style={{ color: '#64748B' }}>{d.type} · {d.dueDate}</p>
                       </div>
                       <span className="text-xs font-semibold flex-shrink-0" style={{ color: urgency }}>
-                        {days === 0 ? '今天' : days === 1 ? '明天' : `${days}天`}
+                        {days === 0 ? 'Today' : days === 1 ? 'Tomorrow' : `${days}d`}
                       </span>
                     </div>
                     <div className="mt-2">
                       <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: `${priorityColor(d.priority)}20`, color: priorityColor(d.priority) }}>
-                        {d.priority === 'urgent' ? '紧急' : d.priority === 'high' ? '高' : d.priority === 'medium' ? '中' : '低'}
+                        {d.priority}
                       </span>
                     </div>
                   </div>
@@ -248,22 +248,22 @@ export default function DashboardView({ onNavigate }: Props) {
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-semibold flex items-center gap-2">
             <BarChart3 size={18} color="#06B6D4" />
-            每周学习时间
+            Weekly Study Hours
           </h2>
           <button onClick={() => onNavigate('progress')}
             className="text-xs flex items-center gap-1"
             style={{ color: '#06B6D4' }}>
-            完整报告 <ChevronRight size={14} />
+            Full Report <ChevronRight size={14} />
           </button>
         </div>
         {weekLogs.length === 0 ? (
           <div className="text-center py-8">
             <BarChart3 size={32} color="#1E2D45" className="mx-auto mb-3" />
-            <p className="text-sm" style={{ color: '#64748B' }}>还没有进度记录。开始追踪您的学习时间吧！</p>
+            <p className="text-sm" style={{ color: '#64748B' }}>No progress logs yet. Start tracking your study hours!</p>
             <button onClick={() => onNavigate('progress')}
               className="mt-3 text-xs px-4 py-2 rounded-lg"
               style={{ background: 'rgba(6,182,212,0.2)', color: '#06B6D4', border: '1px solid rgba(6,182,212,0.3)' }}>
-              记录进度
+              Log Progress
             </button>
           </div>
         ) : (
@@ -277,18 +277,18 @@ export default function DashboardView({ onNavigate }: Props) {
                   <span className="text-xs w-20 flex-shrink-0" style={{ color: '#64748B' }}>{log.date}</span>
                   <div className="flex-1 space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs w-12" style={{ color: '#64748B' }}>计划</span>
+                      <span className="text-xs w-12" style={{ color: '#64748B' }}>Planned</span>
                       <div className="flex-1 rounded-full h-1.5" style={{ background: '#1E2D45' }}>
                         <div className="h-1.5 rounded-full" style={{ background: 'rgba(79,70,229,0.6)', width: `${(planned / maxH) * 100}%` }} />
                       </div>
-                      <span className="text-xs w-8 text-right" style={{ color: '#64748B' }}>{planned}小时</span>
+                      <span className="text-xs w-8 text-right" style={{ color: '#64748B' }}>{planned}h</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs w-12" style={{ color: '#64748B' }}>实际</span>
+                      <span className="text-xs w-12" style={{ color: '#64748B' }}>Actual</span>
                       <div className="flex-1 rounded-full h-1.5" style={{ background: '#1E2D45' }}>
                         <div className="h-1.5 rounded-full" style={{ background: studied >= planned ? '#10B981' : '#F59E0B', width: `${(studied / maxH) * 100}%` }} />
                       </div>
-                      <span className="text-xs w-8 text-right" style={{ color: '#64748B' }}>{studied}小时</span>
+                      <span className="text-xs w-8 text-right" style={{ color: '#64748B' }}>{studied}h</span>
                     </div>
                   </div>
                 </div>
@@ -307,10 +307,10 @@ export default function DashboardView({ onNavigate }: Props) {
       <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
         {
           [
-            { label: '添加学习时段', icon: CalendarDays, view: 'schedule' as AppView, color: '#4F46E5' },
-            { label: '记录进度', icon: TrendingUp, view: 'progress' as AppView, color: '#10B981' },
-            { label: '团队任务', icon: BookOpen, view: 'collab' as AppView, color: '#0EA5E9' },
-            { label: 'GPA 预测', icon: BarChart3, view: 'gpa' as AppView, color: '#06B6D4' },
+            { label: 'Add Session', icon: CalendarDays, view: 'schedule' as AppView, color: '#4F46E5' },
+            { label: 'Log Progress', icon: TrendingUp, view: 'progress' as AppView, color: '#10B981' },
+            { label: 'Team Tasks', icon: BookOpen, view: 'collab' as AppView, color: '#0EA5E9' },
+            { label: 'GPA Forecast', icon: BarChart3, view: 'gpa' as AppView, color: '#06B6D4' },
           ].map(action => {
             const Icon = action.icon;
             return (
