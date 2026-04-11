@@ -8,7 +8,7 @@ const App = () => (
     <HashRouter>
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/auth" element={<AuthForm onBack={() => window.location.href = '/' />} />
+        <Route path="/auth" element={<AuthForm onBack={() => { window.location.href = '/' }} />} />
       </Routes>
     </HashRouter>
   </AuthProvider>
