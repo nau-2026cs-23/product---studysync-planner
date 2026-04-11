@@ -1,5 +1,6 @@
 import speechRoutes from './routes/speech';
 import studyPlannerRoutes from './routes/studyPlanner';
+import authRoutes from './routes/auth';
 import 'dotenv/config';
 import express, { ErrorRequestHandler } from 'express';
 import path from 'path';
@@ -55,6 +56,8 @@ app.use(express.urlencoded({ extended: true }));
  * API Routes
  */
 app.use('/api/planner', studyPlannerRoutes);
+app.use('/api/speech', speechRoutes);
+app.use('/api/auth', authRoutes);
 
 /**
  * Install Stripe Routes here
@@ -83,4 +86,3 @@ app.listen(SERVER_CONFIG.PORT, () => {
 });
 
 export default app;
-app.use('/api/speech', speechRoutes);

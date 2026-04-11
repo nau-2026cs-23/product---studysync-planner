@@ -162,3 +162,28 @@ export const insertGpaEntrySchema = createInsertSchema(gpaEntries, {
 export const updateGpaEntrySchema = insertGpaEntrySchema.partial();
 export type GpaEntry = typeof gpaEntries.$inferSelect;
 export type InsertGpaEntry = typeof gpaEntries.$inferInsert;
+
+// ─── Users ───────────────────────────────────────────────────────────────────
+export const users = pgTable('Users', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: text('name').notNull(),
+  email: text('email').notNull().unique(),
+  phone: text('phone').notNull().unique(),
+  password: text('password').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+export const insertUserSchema = createInsertSchema(users, {
+  name: z.string().min(1),
+  email: z.string().email(),
+  phone: z.string().min(1),
+  password: z.string().min(6),
+});
+export const loginUserSchema = z.object({
+  email: z.string().email(),
+  phone: z.string().min(1),
+  password: z.string().min(6),
+});
+export type User = typeof users.$inferSelect;
+export type InsertUser = typeof users.$inferInsert;
