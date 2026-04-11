@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Toaster } from '@/components/ui/sonner';
-import OmniflowBadge from '@/components/custom/OmniflowBadge';
 import DashboardView from '@/components/custom/DashboardView';
 import ScheduleView from '@/components/custom/ScheduleView';
 import ProgressView from '@/components/custom/ProgressView';
@@ -56,7 +55,7 @@ export default function Index() {
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: '#4F46E5' }}>
                   <BookOpen size={16} color="white" />
                 </div>
-                <span className="font-bold text-lg tracking-tight">Omniflow</span>
+                <span className="font-bold text-lg tracking-tight">StudySync</span>
                 <span className="hidden sm:inline-block text-xs font-medium px-2 py-0.5 rounded-full tracking-wide uppercase"
                   style={{ background: 'rgba(79,70,229,0.2)', color: '#4F46E5', border: '1px solid rgba(79,70,229,0.3)' }}>Beta</span>
               </div>
@@ -124,7 +123,7 @@ export default function Index() {
                 </span>
               </h1>
               <p className="text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto mb-10 animate-fade-in delay-200" style={{ color: '#64748B' }}>
-                Omniflow 同步您的 Canvas 和 Blackboard 截止日期，构建 AI 优化的学习计划，并跟踪您的进度 — 让您专注于学习，而非后勤事务。
+                StudySync 同步您的 Canvas 和 Blackboard 截止日期，构建 AI 优化的学习计划，并跟踪您的进度 — 让您专注于学习，而非后勤事务。
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
                 <button
@@ -309,7 +308,7 @@ export default function Index() {
               <div className="animate-fade-in">
                 <p className="text-xs font-semibold tracking-widest uppercase mb-3 transition-all duration-300 hover:scale-105" style={{ color: '#4F46E5' }}>智能日程安排</p>
                 <h2 className="font-bold text-4xl sm:text-5xl tracking-tight mb-6 transition-all duration-300 hover:text-white">您的一周，<br />智能规划。</h2>
-                <p className="leading-relaxed mb-8 transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>Omniflow 分析您的课程难度、能量模式和现有承诺，推荐最佳学习时段。拖放即可完成 — AI 处理其余部分。</p>
+                <p className="leading-relaxed mb-8 transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>StudySync 分析您的课程难度、能量模式和现有承诺，推荐最佳学习时段。拖放即可完成 — AI 处理其余部分。</p>
                 <ul className="space-y-4">
                   {[
                     { title: '自动同步 Canvas 和 Blackboard', desc: '所有截止日期自动集中管理 — 无需手动输入。' },
@@ -447,7 +446,7 @@ export default function Index() {
             <div className="text-center mb-14">
               <p className="text-xs font-semibold tracking-widest uppercase mb-3 transition-all duration-300 hover:scale-105" style={{ color: '#0EA5E9' }}>跨平台集成</p>
               <h2 className="font-bold text-4xl sm:text-5xl tracking-tight animate-fade-in">与您已使用的工具<br />无缝连接</h2>
-              <p className="mt-4 max-w-xl mx-auto transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>Omniflow 与您的大学 LMS 和个人日历双向集成 — 确保您的学术生活始终保持同步。</p>
+              <p className="mt-4 max-w-xl mx-auto transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>StudySync 与您的大学 LMS 和个人日历双向集成 — 确保您的学术生活始终保持同步。</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {
@@ -482,13 +481,13 @@ export default function Index() {
               <div className="absolute bottom-0 right-1/4 w-64 h-64 pointer-events-none transition-all duration-700 hover:scale-125" style={{ background: 'rgba(6,182,212,0.1)', filter: 'blur(60px)' }} />
               <p className="text-xs font-semibold tracking-widest uppercase mb-4 transition-all duration-300 hover:scale-105" style={{ color: '#4F46E5' }}>立即开始</p>
               <h2 className="font-bold text-4xl sm:text-5xl tracking-tight mb-6 transition-all duration-300 hover:text-white">您的最佳学期<br />从这里开始。</h2>
-              <p className="max-w-lg mx-auto mb-10 transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>加入成千上万的学生，他们已经使用 Omniflow 消除了临时抱佛脚和错过截止日期的问题。</p>
+              <p className="max-w-lg mx-auto mb-10 transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>加入成千上万的学生，他们已经使用 StudySync 消除了临时抱佛脚和错过截止日期的问题。</p>
               <button
                   onClick={() => isAuthenticated ? navigate('dashboard') : handleAuth('register')}
                   className="px-8 py-3.5 rounded-xl font-semibold text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex items-center gap-2 mx-auto group"
                   style={{ background: '#4F46E5', color: 'white', boxShadow: '0 10px 15px -3px rgba(79,70,229,0.3)' }}>
                   <Zap size={18} className="transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
-                  免费启动 Omniflow
+                  免费启动 StudySync
                 </button>
                 <p className="text-xs mt-4 transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>学生免费使用 · 包含 Canvas 和 Blackboard 同步 · 无需信用卡</p>
             </div>
@@ -504,7 +503,7 @@ export default function Index() {
                   <div className="w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-300 hover:rotate-5" style={{ background: '#4F46E5' }}>
                     <BookOpen size={14} color="white" className="transition-transform duration-300 hover:rotate-12" />
                   </div>
-                  <span className="font-bold transition-all duration-300 hover:text-white">Omniflow</span>
+                  <span className="font-bold transition-all duration-300 hover:text-white">StudySync</span>
                 </div>
                 <p className="text-xs leading-relaxed transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>为现代学生打造的 AI 驱动学习规划工具。支持 Canvas、Blackboard 等平台。</p>
               </div>
@@ -526,12 +525,11 @@ export default function Index() {
               }
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 transition-all duration-300 hover:border-color-rgba(79,70,229,0.5)" style={{ borderTop: '1px solid #1E2D45' }}>
-              <p className="text-xs transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>© 2026 Omniflow. 由 Zhang BINGsi 开发。保留所有权利。</p>
+              <p className="text-xs transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>© 2026 StudySync. 由 Zhang BINGsi 开发。保留所有权利。</p>
               <p className="text-xs transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>为拒绝平庸的学生设计。</p>
             </div>
           </div>
         </footer>
-        <OmniflowBadge />
       </div>
     );
   }
@@ -556,7 +554,7 @@ export default function Index() {
           <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: '#4F46E5' }}>
             <BookOpen size={16} color="white" />
           </div>
-          <span className="font-bold text-base tracking-tight">Omniflow</span>
+          <span className="font-bold text-base tracking-tight">StudySync</span>
           <button className="ml-auto lg:hidden" onClick={() => setMobileOpen(false)}>
             <X size={18} color="#64748B" />
           </button>
@@ -607,7 +605,7 @@ export default function Index() {
             <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: '#4F46E5' }}>
               <BookOpen size={14} color="white" />
             </div>
-            <span className="font-bold text-sm">Omniflow</span>
+            <span className="font-bold text-sm">StudySync</span>
           </div>
           <span className="ml-auto text-sm font-medium" style={{ color: '#64748B' }}>
             {NAV_ITEMS.find(n => n.id === view)?.label}
@@ -623,8 +621,6 @@ export default function Index() {
           {view === 'integrations' && <IntegrationsView />}
         </main>
       </div>
-
-      <OmniflowBadge />
     </div>
   );
 }
