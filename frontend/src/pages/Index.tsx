@@ -103,47 +103,51 @@ export default function Index() {
         {/* HERO */}
         <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-20 left-1/4 w-96 h-96 rounded-full" style={{ background: 'rgba(79,70,229,0.1)', filter: 'blur(80px)' }} />
-            <div className="absolute top-40 right-1/4 w-64 h-64 rounded-full" style={{ background: 'rgba(6,182,212,0.08)', filter: 'blur(60px)' }} />
+            <div className="absolute top-20 left-1/4 w-96 h-96 rounded-full animate-pulse" style={{ background: 'rgba(79,70,229,0.1)', filter: 'blur(80px)' }} />
+            <div className="absolute top-40 right-1/4 w-64 h-64 rounded-full animate-pulse" style={{ background: 'rgba(6,182,212,0.08)', filter: 'blur(60px)' }} />
+            <div className="absolute bottom-10 left-1/3 w-80 h-80 rounded-full animate-pulse" style={{ background: 'rgba(16,185,129,0.05)', filter: 'blur(60px)' }} />
           </div>
           <div className="max-w-screen-xl mx-auto">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8"
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8 transition-all duration-300 hover:scale-105"
                 style={{ border: '1px solid #1E2D45', background: '#131929' }}>
                 <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#10B981' }} />
                 <span className="text-xs tracking-wide" style={{ color: '#64748B' }}>AI驱动的学术日程安排 — 现已推出测试版</span>
               </div>
-              <h1 className="font-bold text-5xl sm:text-6xl lg:text-7xl leading-tight tracking-tight mb-6">
+              <h1 className="font-bold text-5xl sm:text-6xl lg:text-7xl leading-tight tracking-tight mb-6 animate-fade-in">
                 告别临时抱佛脚<br />
-                <span style={{ background: 'linear-gradient(to right, #4F46E5, #0EA5E9, #06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                  开始掌握学习
+                <span className="relative inline-block">
+                  <span style={{ background: 'linear-gradient(to right, #4F46E5, #0EA5E9, #06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                    开始掌握学习
+                  </span>
+                  <span className="absolute -bottom-1 left-0 w-full h-0.5 rounded-full bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-500 transform scale-x-0 origin-left transition-transform duration-500 hover:scale-x-100" />
                 </span>
               </h1>
-              <p className="text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto mb-10" style={{ color: '#64748B' }}>
+              <p className="text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto mb-10 animate-fade-in delay-200" style={{ color: '#64748B' }}>
                 Omniflow 同步您的 Canvas 和 Blackboard 截止日期，构建 AI 优化的学习计划，并跟踪您的进度 — 让您专注于学习，而非后勤事务。
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
                 <button
                   onClick={() => isAuthenticated ? navigate('dashboard') : handleAuth('register')}
-                  className="px-8 py-3.5 rounded-xl font-semibold text-base transition-all duration-200 hover:-translate-y-0.5 flex items-center gap-2"
+                  className="px-8 py-3.5 rounded-xl font-semibold text-base transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg flex items-center gap-2 group"
                   style={{ background: '#4F46E5', color: 'white', boxShadow: '0 10px 15px -3px rgba(79,70,229,0.3)' }}>
-                  <Sparkles size={18} />
+                  <Sparkles size={18} className="transition-transform duration-300 group-hover:rotate-12" />
                   免费启动应用
                 </button>
                 <button
                   onClick={() => isAuthenticated ? navigate('schedule') : handleAuth('login')}
-                  className="px-8 py-3.5 rounded-xl font-semibold text-base transition-all duration-200 flex items-center gap-2"
+                  className="px-8 py-3.5 rounded-xl font-semibold text-base transition-all duration-300 flex items-center gap-2 group"
                   style={{ border: '1px solid #1E2D45', color: '#F1F5F9', background: 'transparent' }}>
-                  查看日程 <ChevronRight size={16} />
+                  查看日程 <ChevronRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
                 </button>
               </div>
 
               {/* Hero image with stats */}
-              <div className="relative rounded-2xl overflow-hidden" style={{ border: '1px solid #1E2D45', boxShadow: '0 25px 50px -12px rgba(79,70,229,0.25)' }}>
+              <div className="relative rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl" style={{ border: '1px solid #1E2D45', boxShadow: '0 25px 50px -12px rgba(79,70,229,0.25)' }}>
                 <img
                   src="https://images.unsplash.com/photo-1758270705290-62b6294dd044?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
                   alt="Students studying with laptops"
-                  className="w-full h-64 sm:h-80 object-cover"
+                  className="w-full h-64 sm:h-80 object-cover transition-transform duration-700 hover:scale-105"
                   style={{ opacity: 0.55 }}
                 />
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, #0B0F1A, rgba(11,15,26,0.4), transparent)' }} />
@@ -153,8 +157,8 @@ export default function Index() {
                     { val: '50%', label: 'Fewer Late Submissions', color: '#10B981' },
                     { val: '40%', label: 'Less Time Scheduling', color: '#06B6D4' },
                   ].map(s => (
-                    <div key={s.label} className="rounded-xl p-3 text-center" style={{ background: 'rgba(19,25,41,0.9)', backdropFilter: 'blur(12px)', border: '1px solid #1E2D45' }}>
-                      <div className="text-2xl font-bold" style={{ color: s.color }}>{s.val}</div>
+                    <div key={s.label} className="rounded-xl p-3 text-center transition-all duration-300 hover:scale-105" style={{ background: 'rgba(19,25,41,0.9)', backdropFilter: 'blur(12px)', border: '1px solid #1E2D45' }}>
+                      <div className="text-2xl font-bold transition-all duration-300 hover:scale-110" style={{ color: s.color }}>{s.val}</div>
                       <div className="text-xs mt-0.5" style={{ color: '#64748B' }}>{s.label}</div>
                     </div>
                   ))}
@@ -168,33 +172,33 @@ export default function Index() {
         <section id="features" className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-14">
-              <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#4F46E5' }}>核心功能</p>
-              <h2 className="font-bold text-4xl sm:text-5xl tracking-tight">助您在学期中脱颖而出的<br />全套工具</h2>
+              <p className="text-xs font-semibold tracking-widest uppercase mb-3 transition-all duration-300 hover:scale-105" style={{ color: '#4F46E5' }}>核心功能</p>
+              <h2 className="font-bold text-4xl sm:text-5xl tracking-tight animate-fade-in">助您在学期中脱颖而出的<br />全套工具</h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {/* AI Planning Engine - wide */}
-              <div className="lg:col-span-2 rounded-2xl p-6 group relative overflow-hidden transition-all duration-300"
+              <div className="lg:col-span-2 rounded-2xl p-6 group relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:translate-y-[-5px]"
                 style={{ background: '#131929', border: '1px solid #1E2D45' }}
                 onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(79,70,229,0.5)')}
                 onMouseLeave={e => (e.currentTarget.style.borderColor = '#1E2D45')}>
-                <div className="absolute top-0 right-0 w-48 h-48 rounded-full" style={{ background: 'rgba(79,70,229,0.05)', filter: 'blur(40px)' }} />
+                <div className="absolute top-0 right-0 w-48 h-48 rounded-full transition-all duration-700 group-hover:scale-125" style={{ background: 'rgba(79,70,229,0.05)', filter: 'blur(40px)' }} />
                 <div className="flex items-start gap-4 mb-6">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(79,70,229,0.2)' }}>
-                    <Sparkles size={20} color="#4F46E5" />
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110" style={{ background: 'rgba(79,70,229,0.2)' }}>
+                    <Sparkles size={20} color="#4F46E5" className="transition-transform duration-300 group-hover:rotate-12" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg mb-1">智能规划引擎</h3>
-                    <p className="text-sm leading-relaxed" style={{ color: '#64748B' }}>围绕您的课程表拖放学习时段。当考试日期变更时，AI 会自动调整您的计划 — 无需手动重新安排。</p>
+                    <h3 className="font-semibold text-lg mb-1 transition-all duration-300 group-hover:text-white">智能规划引擎</h3>
+                    <p className="text-sm leading-relaxed transition-all duration-300 group-hover:opacity-90" style={{ color: '#64748B' }}>围绕您的课程表拖放学习时段。当考试日期变更时，AI 会自动调整您的计划 — 无需手动重新安排。</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
                   {['Mon', 'Wed', 'Fri'].map((day, i) => (
-                    <div key={day} className="rounded-xl p-3" style={{ background: '#0B0F1A', border: '1px solid #1E2D45' }}>
+                    <div key={day} className="rounded-xl p-3 transition-all duration-300 hover:scale-105" style={{ background: '#0B0F1A', border: '1px solid #1E2D45' }}>
                       <div className="text-xs mb-1" style={{ color: '#64748B' }}>{day}</div>
                       <div className="space-y-1">
-                        <div className="h-2 rounded-full" style={{ background: 'rgba(79,70,229,0.6)', width: i === 0 ? '100%' : i === 1 ? '80%' : '60%' }} />
-                        <div className="h-2 rounded-full" style={{ background: 'rgba(6,182,212,0.6)', width: i === 0 ? '75%' : i === 1 ? '65%' : '100%' }} />
-                        <div className="h-2 rounded-full" style={{ background: 'rgba(79,70,229,0.4)', width: i === 0 ? '50%' : i === 1 ? '100%' : '75%' }} />
+                        <div className="h-2 rounded-full transition-all duration-500 hover:opacity-100" style={{ background: 'rgba(79,70,229,0.6)', width: i === 0 ? '100%' : i === 1 ? '80%' : '60%' }} />
+                        <div className="h-2 rounded-full transition-all duration-500 hover:opacity-100" style={{ background: 'rgba(6,182,212,0.6)', width: i === 0 ? '75%' : i === 1 ? '65%' : '100%' }} />
+                        <div className="h-2 rounded-full transition-all duration-500 hover:opacity-100" style={{ background: 'rgba(79,70,229,0.4)', width: i === 0 ? '50%' : i === 1 ? '100%' : '75%' }} />
                       </div>
                     </div>
                   ))}
@@ -202,22 +206,22 @@ export default function Index() {
               </div>
 
               {/* GPA Predictor */}
-              <div className="rounded-2xl p-6 transition-all duration-300"
+              <div className="rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:translate-y-[-5px]"
                 style={{ background: '#131929', border: '1px solid #1E2D45' }}
                 onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(16,185,129,0.5)')}
                 onMouseLeave={e => (e.currentTarget.style.borderColor = '#1E2D45')}>
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ background: 'rgba(16,185,129,0.2)' }}>
-                  <BarChart3 size={20} color="#10B981" />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-all duration-300 hover:scale-110" style={{ background: 'rgba(16,185,129,0.2)' }}>
+                  <BarChart3 size={20} color="#10B981" className="transition-transform duration-300 hover:rotate-12" />
                 </div>
-                <h3 className="font-semibold text-lg mb-2">GPA 预测器</h3>
-                <p className="text-sm leading-relaxed mb-4" style={{ color: '#64748B' }}>根据记录的学习时间预测您的学期 GPA。及时调整努力程度，避免为时已晚。</p>
-                <div className="rounded-xl p-4" style={{ background: '#0B0F1A', border: '1px solid #1E2D45' }}>
+                <h3 className="font-semibold text-lg mb-2 transition-all duration-300 hover:text-white">GPA 预测器</h3>
+                <p className="text-sm leading-relaxed mb-4 transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>根据记录的学习时间预测您的学期 GPA。及时调整努力程度，避免为时已晚。</p>
+                <div className="rounded-xl p-4 transition-all duration-300 hover:scale-105" style={{ background: '#0B0F1A', border: '1px solid #1E2D45' }}>
                   <div className="flex justify-between items-end mb-2">
                     <span className="text-xs" style={{ color: '#64748B' }}>Predicted GPA</span>
-                    <span className="text-2xl font-bold" style={{ color: '#10B981' }}>3.72</span>
+                    <span className="text-2xl font-bold transition-all duration-300 hover:scale-110" style={{ color: '#10B981' }}>3.72</span>
                   </div>
                   <div className="w-full rounded-full h-2" style={{ background: '#1E2D45' }}>
-                    <div className="h-2 rounded-full" style={{ background: 'linear-gradient(to right, #10B981, #06B6D4)', width: '74%' }} />
+                    <div className="h-2 rounded-full transition-all duration-700 hover:width-[80%]" style={{ background: 'linear-gradient(to right, #10B981, #06B6D4)', width: '74%' }} />
                   </div>
                   <div className="flex justify-between mt-1">
                     <span className="text-xs" style={{ color: '#64748B' }}>2.0</span>
@@ -227,34 +231,34 @@ export default function Index() {
               </div>
 
               {/* Progress Heatmap */}
-              <div className="rounded-2xl p-6 transition-all duration-300"
+              <div className="rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:translate-y-[-5px]"
                 style={{ background: '#131929', border: '1px solid #1E2D45' }}
                 onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(6,182,212,0.5)')}
                 onMouseLeave={e => (e.currentTarget.style.borderColor = '#1E2D45')}>
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ background: 'rgba(6,182,212,0.2)' }}>
-                  <TrendingUp size={20} color="#06B6D4" />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-all duration-300 hover:scale-110" style={{ background: 'rgba(6,182,212,0.2)' }}>
+                  <TrendingUp size={20} color="#06B6D4" className="transition-transform duration-300 hover:rotate-12" />
                 </div>
-                <h3 className="font-semibold text-lg mb-2">进度热图</h3>
-                <p className="text-sm leading-relaxed mb-4" style={{ color: '#64748B' }}>可视化您整个学期的工作量分布。在倦怠风险发生前发现它们。</p>
+                <h3 className="font-semibold text-lg mb-2 transition-all duration-300 hover:text-white">进度热图</h3>
+                <p className="text-sm leading-relaxed mb-4 transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>可视化您整个学期的工作量分布。在倦怠风险发生前发现它们。</p>
                 <div className="grid grid-cols-7 gap-1">
                   {[20, 50, 80, 30, 90, 60, 20, 70, 40, 100, 20, 55, 75, 35].map((op, i) => (
-                    <div key={i} className="h-5 rounded" style={{ background: `rgba(6,182,212,${op / 100})`, border: op < 30 ? '1px solid #1E2D45' : 'none' }} />
+                    <div key={i} className="h-5 rounded transition-all duration-300 hover:scale-110" style={{ background: `rgba(6,182,212,${op / 100})`, border: op < 30 ? '1px solid #1E2D45' : 'none' }} />
                   ))}
                 </div>
               </div>
 
               {/* Collaboration Hub - wide */}
-              <div className="lg:col-span-2 rounded-2xl p-6 transition-all duration-300"
+              <div className="lg:col-span-2 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:translate-y-[-5px]"
                 style={{ background: '#131929', border: '1px solid #1E2D45' }}
                 onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(14,165,233,0.5)')}
                 onMouseLeave={e => (e.currentTarget.style.borderColor = '#1E2D45')}>
                 <div className="flex items-start gap-4 mb-6">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(14,165,233,0.2)' }}>
-                    <Users size={20} color="#0EA5E9" />
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 hover:scale-110" style={{ background: 'rgba(14,165,233,0.2)' }}>
+                    <Users size={20} color="#0EA5E9" className="transition-transform duration-300 hover:rotate-12" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg mb-1">协作中心</h3>
-                    <p className="text-sm leading-relaxed" style={{ color: '#64748B' }}>用于小组项目的共享任务板，带有 @ 提及通知。实时更新确保团队在责任和截止日期上保持一致。</p>
+                    <h3 className="font-semibold text-lg mb-1 transition-all duration-300 hover:text-white">协作中心</h3>
+                    <p className="text-sm leading-relaxed transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>用于小组项目的共享任务板，带有 @ 提及通知。实时更新确保团队在责任和截止日期上保持一致。</p>
                   </div>
                 </div>
                 <div className="space-y-2">
@@ -263,33 +267,33 @@ export default function Index() {
                     { avatar: 'S', color: '#06B6D4', msg: '@sam assigned Data Analysis to @alex', badge: 'In Progress', badgeColor: '#F59E0B' },
                     { avatar: 'M', color: '#F59E0B', msg: 'Group presentation slides due tomorrow', badge: 'Urgent', badgeColor: '#EF4444' },
                   ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3 rounded-xl p-3" style={{ background: '#0B0F1A', border: '1px solid #1E2D45' }}>
-                      <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0" style={{ background: item.color }}>{item.avatar}</div>
-                      <p className="text-sm flex-1 min-w-0 truncate">{item.msg}</p>
-                      <span className="text-xs flex-shrink-0" style={{ color: item.badgeColor }}>{item.badge}</span>
+                    <div key={i} className="flex items-center gap-3 rounded-xl p-3 transition-all duration-300 hover:scale-102" style={{ background: '#0B0F1A', border: '1px solid #1E2D45' }}>
+                      <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0 transition-all duration-300 hover:scale-110" style={{ background: item.color }}>{item.avatar}</div>
+                      <p className="text-sm flex-1 min-w-0 truncate transition-all duration-300 hover:text-white">{item.msg}</p>
+                      <span className="text-xs flex-shrink-0 transition-all duration-300 hover:scale-110" style={{ color: item.badgeColor }}>{item.badge}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Weekly Reports */}
-              <div className="rounded-2xl p-6 transition-all duration-300"
+              <div className="rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:translate-y-[-5px]"
                 style={{ background: '#131929', border: '1px solid #1E2D45' }}
                 onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(245,158,11,0.5)')}
                 onMouseLeave={e => (e.currentTarget.style.borderColor = '#1E2D45')}>
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ background: 'rgba(245,158,11,0.2)' }}>
-                  <BarChart3 size={20} color="#F59E0B" />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-all duration-300 hover:scale-110" style={{ background: 'rgba(245,158,11,0.2)' }}>
+                  <BarChart3 size={20} color="#F59E0B" className="transition-transform duration-300 hover:rotate-12" />
                 </div>
-                <h3 className="font-semibold text-lg mb-2">周报告</h3>
-                <p className="text-sm leading-relaxed mb-4" style={{ color: '#64748B' }}>比较计划与实际学习时间。识别时间管理差距并及早调整。</p>
+                <h3 className="font-semibold text-lg mb-2 transition-all duration-300 hover:text-white">周报告</h3>
+                <p className="text-sm leading-relaxed mb-4 transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>比较计划与实际学习时间。识别时间管理差距并及早调整。</p>
                 <div className="space-y-2">
                   {[{ label: 'Planned', pct: '80%', val: '16h', color: 'rgba(79,70,229,0.6)' }, { label: 'Actual', pct: '55%', val: '11h', color: '#F59E0B' }].map(r => (
-                    <div key={r.label} className="flex items-center gap-2">
+                    <div key={r.label} className="flex items-center gap-2 transition-all duration-300 hover:scale-102">
                       <span className="text-xs w-16" style={{ color: '#64748B' }}>{r.label}</span>
                       <div className="flex-1 rounded-full h-2" style={{ background: '#1E2D45' }}>
-                        <div className="h-2 rounded-full" style={{ background: r.color, width: r.pct }} />
+                        <div className="h-2 rounded-full transition-all duration-700 hover:width-[90%]" style={{ background: r.color, width: r.pct }} />
                       </div>
-                      <span className="text-xs" style={{ color: '#64748B' }}>{r.val}</span>
+                      <span className="text-xs transition-all duration-300 hover:text-white" style={{ color: '#64748B' }}>{r.val}</span>
                     </div>
                   ))}
                 </div>
@@ -302,35 +306,35 @@ export default function Index() {
         <section id="schedule" className="py-20 px-4 sm:px-6 lg:px-8" style={{ background: 'rgba(19,25,41,0.3)' }}>
           <div className="max-w-screen-xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#4F46E5' }}>智能日程安排</p>
-                <h2 className="font-bold text-4xl sm:text-5xl tracking-tight mb-6">您的一周，<br />智能规划。</h2>
-                <p className="leading-relaxed mb-8" style={{ color: '#64748B' }}>Omniflow 分析您的课程难度、能量模式和现有承诺，推荐最佳学习时段。拖放即可完成 — AI 处理其余部分。</p>
+              <div className="animate-fade-in">
+                <p className="text-xs font-semibold tracking-widest uppercase mb-3 transition-all duration-300 hover:scale-105" style={{ color: '#4F46E5' }}>智能日程安排</p>
+                <h2 className="font-bold text-4xl sm:text-5xl tracking-tight mb-6 transition-all duration-300 hover:text-white">您的一周，<br />智能规划。</h2>
+                <p className="leading-relaxed mb-8 transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>Omniflow 分析您的课程难度、能量模式和现有承诺，推荐最佳学习时段。拖放即可完成 — AI 处理其余部分。</p>
                 <ul className="space-y-4">
                   {[
                     { title: '自动同步 Canvas 和 Blackboard', desc: '所有截止日期自动集中管理 — 无需手动输入。' },
                     { title: '考试变更时动态重新安排', desc: '教授更改期中考试时间？您的计划立即更新。' },
                     { title: '导出到 Google 日历', desc: '无缝查看学术截止日期和个人事件。' },
-                  ].map(item => (
-                    <li key={item.title} className="flex items-start gap-3">
-                      <CheckCircle2 size={18} color="#10B981" className="flex-shrink-0 mt-0.5" />
+                  ].map((item, index) => (
+                    <li key={item.title} className="flex items-start gap-3 transition-all duration-300 hover:scale-102 animate-fade-in delay-100">
+                      <CheckCircle2 size={18} color="#10B981" className="flex-shrink-0 mt-0.5 transition-all duration-300 hover:scale-110" />
                       <div>
-                        <p className="text-sm font-medium">{item.title}</p>
-                        <p className="text-xs mt-0.5" style={{ color: '#64748B' }}>{item.desc}</p>
+                        <p className="text-sm font-medium transition-all duration-300 hover:text-white">{item.title}</p>
+                        <p className="text-xs mt-0.5 transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>{item.desc}</p>
                       </div>
                     </li>
                   ))}
                 </ul>
                 <button
                   onClick={() => isAuthenticated ? navigate('schedule') : handleAuth('login')}
-                  className="mt-8 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5 flex items-center gap-2"
+                  className="mt-8 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg flex items-center gap-2 group"
                   style={{ background: '#4F46E5', color: 'white' }}>
-                  打开日程 <ChevronRight size={16} />
+                  打开日程 <ChevronRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
                 </button>
               </div>
-              <div className="rounded-2xl overflow-hidden" style={{ background: '#131929', border: '1px solid #1E2D45' }}>
-                <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: '1px solid #1E2D45' }}>
-                  <h4 className="font-semibold text-sm">本周 — 3月14日至20日</h4>
+              <div className="rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:translate-y-[-5px]" style={{ background: '#131929', border: '1px solid #1E2D45' }}>
+                <div className="flex items-center justify-between px-5 py-4 transition-all duration-300 hover:bg-opacity-90" style={{ borderBottom: '1px solid #1E2D45' }}>
+                  <h4 className="font-semibold text-sm transition-all duration-300 hover:text-white">本周 — 3月14日至20日</h4>
                 </div>
                 <div className="p-4 space-y-2">
                   {[
@@ -338,12 +342,12 @@ export default function Index() {
                     { time: '11:30 AM', title: '有机化学 — 复习', sub: '1.5小时 · 3天后考试', color: '#06B6D4' },
                     { time: '2:00 PM', title: '论文 — 第3章草稿', sub: '3小时 · 周五截止', color: '#F59E0B' },
                     { time: '5:30 PM', title: '小组项目 — 数据分析', sub: '1小时 · 与 @sam, @maya 共享', color: '#10B981' },
-                  ].map(s => (
-                    <div key={s.time} className="flex items-center gap-2">
-                      <span className="text-xs w-16 flex-shrink-0" style={{ color: '#64748B' }}>{s.time}</span>
-                      <div className="flex-1 rounded-lg px-3 py-2" style={{ background: `${s.color}20`, border: `1px solid ${s.color}40` }}>
-                        <p className="text-xs font-medium" style={{ color: s.color }}>{s.title}</p>
-                        <p className="text-xs" style={{ color: '#64748B' }}>{s.sub}</p>
+                  ].map((s, index) => (
+                    <div key={s.time} className="flex items-center gap-2 transition-all duration-300 hover:scale-102 animate-fade-in delay-200">
+                      <span className="text-xs w-16 flex-shrink-0 transition-all duration-300 hover:text-white" style={{ color: '#64748B' }}>{s.time}</span>
+                      <div className="flex-1 rounded-lg px-3 py-2 transition-all duration-300 hover:scale-105" style={{ background: `${s.color}20`, border: `1px solid ${s.color}40` }}>
+                        <p className="text-xs font-medium transition-all duration-300 hover:scale-105" style={{ color: s.color }}>{s.title}</p>
+                        <p className="text-xs transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>{s.sub}</p>
                       </div>
                     </div>
                   ))}
@@ -357,8 +361,8 @@ export default function Index() {
         <section id="analytics" className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-14">
-              <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#06B6D4' }}>进度跟踪</p>
-              <h2 className="font-bold text-4xl sm:text-5xl tracking-tight">数据驱动的洞察<br />为每位学生</h2>
+              <p className="text-xs font-semibold tracking-widest uppercase mb-3 transition-all duration-300 hover:scale-105" style={{ color: '#06B6D4' }}>进度跟踪</p>
+              <h2 className="font-bold text-4xl sm:text-5xl tracking-tight animate-fade-in">数据驱动的洞察<br />为每位学生</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
@@ -385,32 +389,32 @@ export default function Index() {
                   ],
                 },
               ].map((card, ci) => (
-                <div key={ci} className="rounded-2xl p-6" style={{ background: '#131929', border: '1px solid #1E2D45' }}>
+                <div key={ci} className="rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:translate-y-[-5px] animate-fade-in delay-100" style={{ background: '#131929', border: '1px solid #1E2D45' }}>
                   <div className="flex items-center justify-between mb-4">
-                    <h4 className="text-sm font-semibold">{card.title}</h4>
-                    <span className="text-xs px-2 py-0.5 rounded-full" style={{ color: card.badgeColor, background: card.badgeBg }}>{card.badge}</span>
+                    <h4 className="text-sm font-semibold transition-all duration-300 hover:text-white">{card.title}</h4>
+                    <span className="text-xs px-2 py-0.5 rounded-full transition-all duration-300 hover:scale-105" style={{ color: card.badgeColor, background: card.badgeBg }}>{card.badge}</span>
                   </div>
                   {card.main && (
                     <>
-                      <div className="text-4xl font-bold mb-1">{card.main}<span className="text-lg font-normal" style={{ color: '#64748B' }}>{card.unit}</span></div>
-                      <p className="text-xs mb-4" style={{ color: '#64748B' }}>{card.sub}</p>
+                      <div className="text-4xl font-bold mb-1 transition-all duration-300 hover:scale-105">{card.main}<span className="text-lg font-normal" style={{ color: '#64748B' }}>{card.unit}</span></div>
+                      <p className="text-xs mb-4 transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>{card.sub}</p>
                     </>
                   )}
                   {card.bars && (
                     <div className="flex gap-1 items-end h-12">
                       {card.bars.map((h, i) => (
-                        <div key={i} className="flex-1 rounded-sm" style={{ height: `${h}%`, background: `rgba(79,70,229,${h / 100 + 0.2})` }} />
+                        <div key={i} className="flex-1 rounded-sm transition-all duration-700 hover:scale-110" style={{ height: `${h}%`, background: `rgba(79,70,229,${h / 100 + 0.2})` }} />
                       ))}
                     </div>
                   )}
                   {card.items && (
                     <div className="space-y-3">
                       {card.items.map((item, i) => (
-                        <div key={i} className="flex items-center gap-3">
-                          <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: item.dot }} />
+                        <div key={i} className="flex items-center gap-3 transition-all duration-300 hover:scale-102">
+                          <div className="w-2 h-2 rounded-full flex-shrink-0 transition-all duration-300 hover:scale-150" style={{ background: item.dot }} />
                           <div className="flex-1">
-                            <p className="text-xs font-medium">{item.name}</p>
-                            <p className="text-xs" style={{ color: '#64748B' }}>{item.date}</p>
+                            <p className="text-xs font-medium transition-all duration-300 hover:text-white">{item.name}</p>
+                            <p className="text-xs transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>{item.date}</p>
                           </div>
                         </div>
                       ))}
@@ -419,13 +423,13 @@ export default function Index() {
                   {card.chapters && (
                     <div className="space-y-2">
                       {card.chapters.map((ch, i) => (
-                        <div key={i}>
+                        <div key={i} className="transition-all duration-300 hover:scale-102">
                           <div className="flex justify-between text-xs mb-1" style={{ color: '#64748B' }}>
-                            <span>{ch.name}</span>
-                            <span style={{ color: ch.color }}>{ch.status}</span>
+                            <span className="transition-all duration-300 hover:text-white">{ch.name}</span>
+                            <span className="transition-all duration-300 hover:scale-105" style={{ color: ch.color }}>{ch.status}</span>
                           </div>
                           <div className="w-full rounded-full h-1.5" style={{ background: '#1E2D45' }}>
-                            <div className="h-1.5 rounded-full" style={{ background: ch.color, width: `${ch.pct}%` }} />
+                            <div className="h-1.5 rounded-full transition-all duration-700 hover:width-[100%]" style={{ background: ch.color, width: `${ch.pct}%` }} />
                           </div>
                         </div>
                       ))}
@@ -441,9 +445,9 @@ export default function Index() {
         <section id="integrations" className="py-20 px-4 sm:px-6 lg:px-8" style={{ background: 'rgba(19,25,41,0.3)' }}>
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-14">
-              <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#0EA5E9' }}>跨平台集成</p>
-              <h2 className="font-bold text-4xl sm:text-5xl tracking-tight">与您已使用的工具<br />无缝连接</h2>
-              <p className="mt-4 max-w-xl mx-auto" style={{ color: '#64748B' }}>Omniflow 与您的大学 LMS 和个人日历双向集成 — 确保您的学术生活始终保持同步。</p>
+              <p className="text-xs font-semibold tracking-widest uppercase mb-3 transition-all duration-300 hover:scale-105" style={{ color: '#0EA5E9' }}>跨平台集成</p>
+              <h2 className="font-bold text-4xl sm:text-5xl tracking-tight animate-fade-in">与您已使用的工具<br />无缝连接</h2>
+              <p className="mt-4 max-w-xl mx-auto transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>Omniflow 与您的大学 LMS 和个人日历双向集成 — 确保您的学术生活始终保持同步。</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {
@@ -452,16 +456,16 @@ export default function Index() {
                   { name: 'Blackboard', desc: '拉取课程材料和截止日期通知', color: '#0EA5E9', hoverColor: 'rgba(14,165,233,0.5)' },
                   { name: 'Google 日历', desc: '导出学习时段与个人事件一起', color: '#06B6D4', hoverColor: 'rgba(6,182,212,0.5)' },
                   { name: '顾问仪表板', desc: '顾问通过 LMS 数据监控有风险的学生', color: '#10B981', hoverColor: 'rgba(16,185,129,0.5)' },
-                ].map(int => (
-                  <div key={int.name} className="rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1"
+                ].map((int, index) => (
+                  <div key={int.name} className="rounded-2xl p-6 text-center transition-all duration-300 hover:shadow-lg hover:-translate-y-2 animate-fade-in delay-100"
                     style={{ background: '#131929', border: '1px solid #1E2D45' }}
                     onMouseEnter={e => (e.currentTarget.style.borderColor = int.hoverColor)}
                     onMouseLeave={e => (e.currentTarget.style.borderColor = '#1E2D45')}>
-                    <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ background: '#0B0F1A', border: '1px solid #1E2D45' }}>
-                      <Plug size={24} color={int.color} />
+                    <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 transition-all duration-300 hover:scale-110 hover:rotate-5" style={{ background: '#0B0F1A', border: '1px solid #1E2D45' }}>
+                      <Plug size={24} color={int.color} className="transition-transform duration-300 hover:rotate-12" />
                     </div>
-                    <h4 className="font-semibold text-sm mb-1">{int.name}</h4>
-                    <p className="text-xs" style={{ color: '#64748B' }}>{int.desc}</p>
+                    <h4 className="font-semibold text-sm mb-1 transition-all duration-300 hover:text-white">{int.name}</h4>
+                    <p className="text-xs transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>{int.desc}</p>
                   </div>
                 ))
               }
@@ -472,36 +476,37 @@ export default function Index() {
         {/* CTA */}
         <section className="py-24 px-4 sm:px-6 lg:px-8">
           <div className="max-w-screen-xl mx-auto">
-            <div className="relative rounded-3xl p-10 sm:p-16 text-center overflow-hidden"
+            <div className="relative rounded-3xl p-10 sm:p-16 text-center overflow-hidden transition-all duration-500 hover:shadow-2xl animate-fade-in"
               style={{ background: 'linear-gradient(135deg, rgba(79,70,229,0.2), #131929, rgba(6,182,212,0.1))', border: '1px solid #1E2D45' }}>
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-48 pointer-events-none" style={{ background: 'rgba(79,70,229,0.15)', filter: 'blur(60px)' }} />
-              <p className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: '#4F46E5' }}>立即开始</p>
-              <h2 className="font-bold text-4xl sm:text-5xl tracking-tight mb-6">您的最佳学期<br />从这里开始。</h2>
-              <p className="max-w-lg mx-auto mb-10" style={{ color: '#64748B' }}>加入成千上万的学生，他们已经使用 Omniflow 消除了临时抱佛脚和错过截止日期的问题。</p>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-48 pointer-events-none transition-all duration-700 hover:scale-125" style={{ background: 'rgba(79,70,229,0.15)', filter: 'blur(60px)' }} />
+              <div className="absolute bottom-0 right-1/4 w-64 h-64 pointer-events-none transition-all duration-700 hover:scale-125" style={{ background: 'rgba(6,182,212,0.1)', filter: 'blur(60px)' }} />
+              <p className="text-xs font-semibold tracking-widest uppercase mb-4 transition-all duration-300 hover:scale-105" style={{ color: '#4F46E5' }}>立即开始</p>
+              <h2 className="font-bold text-4xl sm:text-5xl tracking-tight mb-6 transition-all duration-300 hover:text-white">您的最佳学期<br />从这里开始。</h2>
+              <p className="max-w-lg mx-auto mb-10 transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>加入成千上万的学生，他们已经使用 Omniflow 消除了临时抱佛脚和错过截止日期的问题。</p>
               <button
                   onClick={() => isAuthenticated ? navigate('dashboard') : handleAuth('register')}
-                  className="px-8 py-3.5 rounded-xl font-semibold text-base transition-all duration-200 hover:-translate-y-0.5 flex items-center gap-2 mx-auto"
+                  className="px-8 py-3.5 rounded-xl font-semibold text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex items-center gap-2 mx-auto group"
                   style={{ background: '#4F46E5', color: 'white', boxShadow: '0 10px 15px -3px rgba(79,70,229,0.3)' }}>
-                  <Zap size={18} />
+                  <Zap size={18} className="transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
                   免费启动 Omniflow
                 </button>
-                <p className="text-xs mt-4" style={{ color: '#64748B' }}>学生免费使用 · 包含 Canvas 和 Blackboard 同步 · 无需信用卡</p>
+                <p className="text-xs mt-4 transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>学生免费使用 · 包含 Canvas 和 Blackboard 同步 · 无需信用卡</p>
             </div>
           </div>
         </section>
 
         {/* FOOTER */}
-        <footer className="py-12 px-4 sm:px-6 lg:px-8" style={{ borderTop: '1px solid #1E2D45' }}>
+        <footer className="py-12 px-4 sm:px-6 lg:px-8 transition-all duration-300 hover:bg-opacity-90" style={{ borderTop: '1px solid #1E2D45' }}>
           <div className="max-w-screen-xl mx-auto">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-10">
               <div className="col-span-2 sm:col-span-1">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: '#4F46E5' }}>
-                    <BookOpen size={14} color="white" />
+                <div className="flex items-center gap-2 mb-4 transition-all duration-300 hover:scale-105">
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-300 hover:rotate-5" style={{ background: '#4F46E5' }}>
+                    <BookOpen size={14} color="white" className="transition-transform duration-300 hover:rotate-12" />
                   </div>
-                  <span className="font-bold">Omniflow</span>
+                  <span className="font-bold transition-all duration-300 hover:text-white">Omniflow</span>
                 </div>
-                <p className="text-xs leading-relaxed" style={{ color: '#64748B' }}>为现代学生打造的 AI 驱动学习规划工具。支持 Canvas、Blackboard 等平台。</p>
+                <p className="text-xs leading-relaxed transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>为现代学生打造的 AI 驱动学习规划工具。支持 Canvas、Blackboard 等平台。</p>
               </div>
               {
                 [
@@ -510,21 +515,19 @@ export default function Index() {
                   { title: '公司', links: ['关于我们', '博客', '隐私政策', '服务条款'] },
                 ].map(col => (
                   <div key={col.title}>
-                    <h5 className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#64748B' }}>{col.title}</h5>
+                    <h5 className="text-xs font-semibold uppercase tracking-widest mb-4 transition-all duration-300 hover:text-white" style={{ color: '#64748B' }}>{col.title}</h5>
                     <ul className="space-y-2">
                       {col.links.map(l => (
-                        <li key={l}><a href="#" className="text-sm transition-colors" style={{ color: '#64748B' }}
-                          onMouseEnter={e => (e.currentTarget.style.color = '#F1F5F9')}
-                          onMouseLeave={e => (e.currentTarget.style.color = '#64748B')}>{l}</a></li>
+                        <li key={l}><a href="#" className="text-sm transition-all duration-300 hover:translate-x-1 hover:text-white" style={{ color: '#64748B' }}>{l}</a></li>
                       ))}
                     </ul>
                   </div>
                 ))
               }
             </div>
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8" style={{ borderTop: '1px solid #1E2D45' }}>
-              <p className="text-xs" style={{ color: '#64748B' }}>© 2026 Omniflow. 由 Zhang BINGsi 开发。保留所有权利。</p>
-              <p className="text-xs" style={{ color: '#64748B' }}>为拒绝平庸的学生设计。</p>
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 transition-all duration-300 hover:border-color-rgba(79,70,229,0.5)" style={{ borderTop: '1px solid #1E2D45' }}>
+              <p className="text-xs transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>© 2026 Omniflow. 由 Zhang BINGsi 开发。保留所有权利。</p>
+              <p className="text-xs transition-all duration-300 hover:opacity-90" style={{ color: '#64748B' }}>为拒绝平庸的学生设计。</p>
             </div>
           </div>
         </footer>
