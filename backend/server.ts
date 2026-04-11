@@ -4,6 +4,7 @@ import authRoutes from './routes/auth';
 import 'dotenv/config';
 import express, { ErrorRequestHandler } from 'express';
 import path from 'path';
+import cors from 'cors';
 
 // Stripe related import add here
 
@@ -49,6 +50,11 @@ app.use(
 );
 
 // API Routes import here
+app.use(cors({
+  origin: '*', // 在生产环境中应该设置具体的域名
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

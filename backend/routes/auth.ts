@@ -2,8 +2,6 @@ import { Router, type Request, type Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { db } from '../db';
-import { users, insertUserSchema, loginUserSchema } from '../db/schema';
-import { eq } from 'drizzle-orm';
 
 const router = Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
@@ -19,17 +17,19 @@ router.post('/register', async (req: Request, res: Response) => {
     }
 
     // 验证输入
-    const validatedData = insertUserSchema.parse({ name, email, phone, password });
+    if (!name || !email || !phone || !password) {
+      return res.status(400).json({ message: '所有字段都必填' });
+    }
 
     // 检查邮箱是否已存在
-    const existingUser = await db.select().from(users).where(eq(users.email, email)).limit(1);
-    if (existingUser.length > 0) {
+    const existingUsersByEmail = await db.select('users', { email });
+    if (existingUsersByEmail.length > 0) {
       return res.status(400).json({ message: '邮箱已被注册' });
     }
 
     // 检查手机号是否已存在
-    const existingPhone = await db.select().from(users).where(eq(users.phone, phone)).limit(1);
-    if (existingPhone.length > 0) {
+    const existingUsersByPhone = await db.select('users', { phone });
+    if (existingUsersByPhone.length > 0) {
       return res.status(400).json({ message: '手机号已被注册' });
     }
 
@@ -37,12 +37,12 @@ router.post('/register', async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // 创建用户
-    const [newUser] = await db.insert(users).values({
+    const newUser = await db.insert('users', {
       name,
       email,
       phone,
       password: hashedPassword,
-    }).returning();
+    });
 
     // 生成JWT令牌
     const token = jwt.sign({ userId: newUser.id }, JWT_SECRET, { expiresIn: '7d' });
@@ -60,18 +60,18 @@ router.post('/login', async (req: Request, res: Response) => {
     const { email, phone, password } = req.body;
 
     // 验证输入
-    const validatedData = loginUserSchema.parse({ email, phone, password });
+    if (!email || !password) {
+      return res.status(400).json({ message: '邮箱和密码必填' });
+    }
 
-    // 查找用户（通过邮箱或手机号）
-    const foundUser = await db.select().from(users).where(
-      eq(users.email, email)
-    ).limit(1);
+    // 查找用户（通过邮箱）
+    const foundUsers = await db.select('users', { email });
 
-    if (foundUser.length === 0) {
+    if (foundUsers.length === 0) {
       return res.status(401).json({ message: '邮箱或密码错误' });
     }
 
-    const user = foundUser[0];
+    const user = foundUsers[0];
 
     // 验证密码
     const passwordMatch = await bcrypt.compare(password, user.password);
@@ -102,11 +102,13 @@ router.get('/me', async (req: Request, res: Response) => {
     const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
 
     // 查找用户
-    const [user] = await db.select().from(users).where(eq(users.id, decoded.userId)).limit(1);
+    const foundUsers = await db.select('users', { id: decoded.userId });
 
-    if (!user) {
+    if (foundUsers.length === 0) {
       return res.status(401).json({ success: false, message: '用户不存在' });
     }
+
+    const user = foundUsers[0];
 
     res.status(200).json({ success: true, user: { id: user.id, name: user.name, email: user.email, phone: user.phone } });
   } catch (error) {
