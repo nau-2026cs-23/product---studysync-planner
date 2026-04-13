@@ -32,8 +32,8 @@ const AuthForm = ({ onBack }: AuthFormProps) => {
     try {
       const endpoint = activeTab === 'login' ? '/api/auth/login' : '/api/auth/register';
       const body = activeTab === 'login' 
-        ? { email, phone, password }
-        : { name, email, phone, password, confirmPassword };
+        ? { email, password }
+        : { email, password, confirmPassword };
 
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -93,25 +93,6 @@ const AuthForm = ({ onBack }: AuthFormProps) => {
                   </Alert>
                 )}
                 
-                {activeTab === 'register' && (
-                  <div className="mb-4">
-                    <Label htmlFor="name" className="text-sm font-medium mb-1 block">
-                      姓名
-                    </Label>
-                    <div className="relative">
-                      <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                      <Input
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="请输入您的姓名"
-                        required
-                        className="pl-10 bg-gray-900 border-gray-700 text-white"
-                      />
-                    </div>
-                  </div>
-                )}
-                
                 <div className="mb-4">
                   <Label htmlFor="email" className="text-sm font-medium mb-1 block">
                     邮箱
@@ -124,23 +105,6 @@ const AuthForm = ({ onBack }: AuthFormProps) => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="请输入您的邮箱"
-                      required
-                      className="pl-10 bg-gray-900 border-gray-700 text-white"
-                    />
-                  </div>
-                </div>
-                
-                <div className="mb-4">
-                  <Label htmlFor="phone" className="text-sm font-medium mb-1 block">
-                    手机号码
-                  </Label>
-                  <div className="relative">
-                    <Phone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                    <Input
-                      id="phone"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="请输入您的手机号码"
                       required
                       className="pl-10 bg-gray-900 border-gray-700 text-white"
                     />
@@ -212,7 +176,7 @@ const AuthForm = ({ onBack }: AuthFormProps) => {
         </Card>
         
         <p className="text-center text-xs text-gray-400 mt-6">
-          © 2026 Omniflow. 保留所有权利。
+          © 2026 StudySync. 保留所有权利。
         </p>
       </div>
     </div>
