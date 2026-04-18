@@ -6,7 +6,7 @@ export interface ApiResponse<T> {
 }
 
 // ─── Navigation ──────────────────────────────────────────────────────────────────
-export type AppView = 'landing' | 'dashboard' | 'schedule' | 'progress' | 'collab' | 'integrations' | 'gpa';
+export type AppView = 'landing' | 'dashboard' | 'schedule' | 'progress' | 'collab' | 'integrations' | 'gpa' | 'pdf' | 'tags' | 'flashcards' | 'ai';
 
 // ─── Course ─────────────────────────────────────────────────────────────────────
 export interface Course {
@@ -98,6 +98,40 @@ export interface GpaEntry {
   targetGrade: string;
   studyHoursPerWeek: string;
   semester: string;
+  createdAt: string;
+}
+
+// ─── Team Task ──────────────────────────────────────────────────────────────────
+export interface TeamTask {
+  id: string;
+  userId: string;
+  title: string;
+  description: string | null;
+  priority: string;
+  dueDate: string;
+  assignedTo: string | null;
+  status: string;
+  createdAt: string;
+}
+
+// ─── Team Member ────────────────────────────────────────────────────────────────
+export interface TeamMember {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  createdAt: string;
+}
+
+// ─── Integration ────────────────────────────────────────────────────────────────
+export interface Integration {
+  id: string;
+  userId: string;
+  type: string;
+  name: string;
+  status: string;
+  apiKey: string;
+  settings: Record<string, any>;
   createdAt: string;
 }
 

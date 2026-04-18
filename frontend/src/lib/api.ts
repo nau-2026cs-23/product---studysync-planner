@@ -1,7 +1,7 @@
 import { API_BASE_URL } from '@/config/constants';
 import type {
   ApiResponse, Course, StudySession, Deadline, ProgressLog,
-  ThesisMilestone, CollabTask, GpaEntry,
+  ThesisMilestone, CollabTask, GpaEntry, TeamTask, TeamMember, Integration,
 } from '@/types';
 
 const BASE = `${API_BASE_URL}/api/planner`;
@@ -54,3 +54,15 @@ export const getGpaEntries = () => req<GpaEntry[]>(`${BASE}/gpa`);
 export const createGpaEntry = (data: Partial<GpaEntry>) => req<GpaEntry>(`${BASE}/gpa`, { method: 'POST', body: JSON.stringify(data) });
 export const updateGpaEntry = (id: string, data: Partial<GpaEntry>) => req<GpaEntry>(`${BASE}/gpa/${id}`, { method: 'PUT', body: JSON.stringify(data) });
 export const deleteGpaEntry = (id: string) => req<null>(`${BASE}/gpa/${id}`, { method: 'DELETE' });
+
+// ─── Team Tasks ──────────────────────────────────────────────────────────────
+export const getTeamTasks = () => req<TeamTask[]>(`${BASE}/team-tasks`);
+export const createTeamTask = (data: Partial<TeamTask>) => req<TeamTask>(`${BASE}/team-tasks`, { method: 'POST', body: JSON.stringify(data) });
+export const updateTeamTask = (id: string, data: Partial<TeamTask>) => req<TeamTask>(`${BASE}/team-tasks/${id}`, { method: 'PUT', body: JSON.stringify(data) });
+export const deleteTeamTask = (id: string) => req<null>(`${BASE}/team-tasks/${id}`, { method: 'DELETE' });
+export const getTeamMembers = () => req<TeamMember[]>(`${BASE}/team-members`);
+
+// ─── Integrations ─────────────────────────────────────────────────────────────
+export const getIntegrations = () => req<Integration[]>(`${BASE}/integrations`);
+export const createIntegration = (data: Partial<Integration>) => req<Integration>(`${BASE}/integrations`, { method: 'POST', body: JSON.stringify(data) });
+export const deleteIntegration = (id: string) => req<null>(`${BASE}/integrations/${id}`, { method: 'DELETE' });

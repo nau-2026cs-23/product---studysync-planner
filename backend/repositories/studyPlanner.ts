@@ -1,29 +1,19 @@
 import { db } from '../db/index';
-import {
-  courses, studySessions, deadlines, progressLogs, thesisMilestones, collabTasks, gpaEntries,
-  insertCourseSchema, insertStudySessionSchema, insertDeadlineSchema,
-  insertProgressLogSchema, insertThesisMilestoneSchema, insertCollabTaskSchema, insertGpaEntrySchema,
-  InsertCourse, InsertStudySession, InsertDeadline, InsertProgressLog,
-  InsertThesisMilestone, InsertCollabTask, InsertGpaEntry,
-} from '../db/schema';
-import { eq, desc, asc } from 'drizzle-orm';
 import { z } from 'zod';
 
 // ─── Courses ─────────────────────────────────────────────────────────────────
 export const coursesRepo = {
   async getAll() {
-    return db.select().from(courses).orderBy(asc(courses.createdAt));
+    return db.select('courses', {}).sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
   },
-  async create(data: z.infer<typeof insertCourseSchema>) {
-    const [row] = await db.insert(courses).values(data as InsertCourse).returning();
-    return row;
+  async create(data: any) {
+    return db.insert('courses', data);
   },
-  async update(id: string, data: z.infer<typeof insertCourseSchema>) {
-    const [row] = await db.update(courses).set(data as Partial<InsertCourse>).where(eq(courses.id, id)).returning();
-    return row;
+  async update(id: string, data: any) {
+    return db.update('courses', { id }, data);
   },
   async delete(id: string) {
-    const result = await db.delete(courses).where(eq(courses.id, id)).returning();
+    const result = db.delete('courses', { id });
     return result.length > 0;
   },
 };
@@ -31,21 +21,25 @@ export const coursesRepo = {
 // ─── Study Sessions ───────────────────────────────────────────────────────────
 export const studySessionsRepo = {
   async getAll() {
-    return db.select().from(studySessions).orderBy(asc(studySessions.date), asc(studySessions.startTime));
+    return db.select('studySessions', {}).sort((a, b) => {
+      const dateDiff = new Date(a.date).getTime() - new Date(b.date).getTime();
+      if (dateDiff === 0) {
+        return a.startTime.localeCompare(b.startTime);
+      }
+      return dateDiff;
+    });
   },
   async getByDate(date: string) {
-    return db.select().from(studySessions).where(eq(studySessions.date, date)).orderBy(asc(studySessions.startTime));
+    return db.select('studySessions', { date }).sort((a, b) => a.startTime.localeCompare(b.startTime));
   },
-  async create(data: z.infer<typeof insertStudySessionSchema>) {
-    const [row] = await db.insert(studySessions).values(data as InsertStudySession).returning();
-    return row;
+  async create(data: any) {
+    return db.insert('studySessions', data);
   },
-  async update(id: string, data: z.infer<typeof insertStudySessionSchema>) {
-    const [row] = await db.update(studySessions).set(data as Partial<InsertStudySession>).where(eq(studySessions.id, id)).returning();
-    return row;
+  async update(id: string, data: any) {
+    return db.update('studySessions', { id }, data);
   },
   async delete(id: string) {
-    const result = await db.delete(studySessions).where(eq(studySessions.id, id)).returning();
+    const result = db.delete('studySessions', { id });
     return result.length > 0;
   },
 };
@@ -53,18 +47,16 @@ export const studySessionsRepo = {
 // ─── Deadlines ────────────────────────────────────────────────────────────────
 export const deadlinesRepo = {
   async getAll() {
-    return db.select().from(deadlines).orderBy(asc(deadlines.dueDate));
+    return db.select('deadlines', {}).sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
   },
-  async create(data: z.infer<typeof insertDeadlineSchema>) {
-    const [row] = await db.insert(deadlines).values(data as InsertDeadline).returning();
-    return row;
+  async create(data: any) {
+    return db.insert('deadlines', data);
   },
-  async update(id: string, data: z.infer<typeof insertDeadlineSchema>) {
-    const [row] = await db.update(deadlines).set(data as Partial<InsertDeadline>).where(eq(deadlines.id, id)).returning();
-    return row;
+  async update(id: string, data: any) {
+    return db.update('deadlines', { id }, data);
   },
   async delete(id: string) {
-    const result = await db.delete(deadlines).where(eq(deadlines.id, id)).returning();
+    const result = db.delete('deadlines', { id });
     return result.length > 0;
   },
 };
@@ -72,23 +64,21 @@ export const deadlinesRepo = {
 // ─── Progress Logs ────────────────────────────────────────────────────────────
 export const progressLogsRepo = {
   async getAll() {
-    return db.select().from(progressLogs).orderBy(desc(progressLogs.date));
+    return db.select('progressLogs', {}).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   },
   async getByDate(date: string) {
-    const [row] = await db.select().from(progressLogs).where(eq(progressLogs.date, date));
-    return row || null;
+    const results = db.select('progressLogs', { date });
+    return results.length > 0 ? results[0] : null;
   },
-  async upsert(data: z.infer<typeof insertProgressLogSchema>) {
-    const existing = await progressLogsRepo.getByDate(data.date as string);
+  async upsert(data: any) {
+    const existing = await progressLogsRepo.getByDate(data.date);
     if (existing) {
-      const [row] = await db.update(progressLogs).set(data as Partial<InsertProgressLog>).where(eq(progressLogs.date, data.date as string)).returning();
-      return row;
+      return db.update('progressLogs', { date: data.date }, data);
     }
-    const [row] = await db.insert(progressLogs).values(data as InsertProgressLog).returning();
-    return row;
+    return db.insert('progressLogs', data);
   },
   async delete(id: string) {
-    const result = await db.delete(progressLogs).where(eq(progressLogs.id, id)).returning();
+    const result = db.delete('progressLogs', { id });
     return result.length > 0;
   },
 };
@@ -96,18 +86,16 @@ export const progressLogsRepo = {
 // ─── Thesis Milestones ────────────────────────────────────────────────────────
 export const thesisMilestonesRepo = {
   async getAll() {
-    return db.select().from(thesisMilestones).orderBy(asc(thesisMilestones.order));
+    return db.select('thesisMilestones', {}).sort((a, b) => a.order - b.order);
   },
-  async create(data: z.infer<typeof insertThesisMilestoneSchema>) {
-    const [row] = await db.insert(thesisMilestones).values(data as InsertThesisMilestone).returning();
-    return row;
+  async create(data: any) {
+    return db.insert('thesisMilestones', data);
   },
-  async update(id: string, data: z.infer<typeof insertThesisMilestoneSchema>) {
-    const [row] = await db.update(thesisMilestones).set(data as Partial<InsertThesisMilestone>).where(eq(thesisMilestones.id, id)).returning();
-    return row;
+  async update(id: string, data: any) {
+    return db.update('thesisMilestones', { id }, data);
   },
   async delete(id: string) {
-    const result = await db.delete(thesisMilestones).where(eq(thesisMilestones.id, id)).returning();
+    const result = db.delete('thesisMilestones', { id });
     return result.length > 0;
   },
 };
@@ -115,18 +103,16 @@ export const thesisMilestonesRepo = {
 // ─── Collab Tasks ─────────────────────────────────────────────────────────────
 export const collabTasksRepo = {
   async getAll() {
-    return db.select().from(collabTasks).orderBy(desc(collabTasks.createdAt));
+    return db.select('collabTasks', {}).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   },
-  async create(data: z.infer<typeof insertCollabTaskSchema>) {
-    const [row] = await db.insert(collabTasks).values(data as InsertCollabTask).returning();
-    return row;
+  async create(data: any) {
+    return db.insert('collabTasks', data);
   },
-  async update(id: string, data: z.infer<typeof insertCollabTaskSchema>) {
-    const [row] = await db.update(collabTasks).set(data as Partial<InsertCollabTask>).where(eq(collabTasks.id, id)).returning();
-    return row;
+  async update(id: string, data: any) {
+    return db.update('collabTasks', { id }, data);
   },
   async delete(id: string) {
-    const result = await db.delete(collabTasks).where(eq(collabTasks.id, id)).returning();
+    const result = db.delete('collabTasks', { id });
     return result.length > 0;
   },
 };
@@ -134,18 +120,16 @@ export const collabTasksRepo = {
 // ─── GPA Entries ──────────────────────────────────────────────────────────────
 export const gpaEntriesRepo = {
   async getAll() {
-    return db.select().from(gpaEntries).orderBy(asc(gpaEntries.createdAt));
+    return db.select('gpaEntries', {}).sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
   },
-  async create(data: z.infer<typeof insertGpaEntrySchema>) {
-    const [row] = await db.insert(gpaEntries).values(data as InsertGpaEntry).returning();
-    return row;
+  async create(data: any) {
+    return db.insert('gpaEntries', data);
   },
-  async update(id: string, data: z.infer<typeof insertGpaEntrySchema>) {
-    const [row] = await db.update(gpaEntries).set(data as Partial<InsertGpaEntry>).where(eq(gpaEntries.id, id)).returning();
-    return row;
+  async update(id: string, data: any) {
+    return db.update('gpaEntries', { id }, data);
   },
   async delete(id: string) {
-    const result = await db.delete(gpaEntries).where(eq(gpaEntries.id, id)).returning();
+    const result = db.delete('gpaEntries', { id });
     return result.length > 0;
   },
 };

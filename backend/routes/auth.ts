@@ -1,10 +1,15 @@
 import { Router, type Request, type Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { db } from '../db';
+import { db, storage } from '../db';
 
 const router = Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+
+// 临时测试路由 - 查看所有用户
+router.get('/test/users', (req: Request, res: Response) => {
+  res.json({ users: storage.users });
+});
 
 // 注册路由
 router.post('/register', async (req: Request, res: Response) => {
@@ -22,7 +27,7 @@ router.post('/register', async (req: Request, res: Response) => {
     }
 
     // 检查邮箱是否已存在
-    const existingUsersByEmail = await db.select('users', { email });
+    const existingUsersByEmail = db.select('users', { email });
     if (existingUsersByEmail.length > 0) {
       return res.status(400).json({ message: '邮箱已被注册' });
     }
@@ -31,7 +36,7 @@ router.post('/register', async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // 创建用户
-    const newUser = await db.insert('users', {
+    const newUser = db.insert('users', {
       email,
       password: hashedPassword,
     });
@@ -57,7 +62,7 @@ router.post('/login', async (req: Request, res: Response) => {
     }
 
     // 查找用户（通过邮箱）
-    const foundUsers = await db.select('users', { email });
+    const foundUsers = db.select('users', { email });
 
     if (foundUsers.length === 0) {
       return res.status(401).json({ message: '邮箱或密码错误' });
@@ -94,7 +99,7 @@ router.get('/me', async (req: Request, res: Response) => {
     const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
 
     // 查找用户
-    const foundUsers = await db.select('users', { id: decoded.userId });
+    const foundUsers = db.select('users', { id: decoded.userId });
 
     if (foundUsers.length === 0) {
       return res.status(401).json({ success: false, message: '用户不存在' });
