@@ -173,47 +173,87 @@ export default function DashboardView({ onNavigate }: Props) {
 
         {/* 功能卡片 */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-xl p-6 border border-gray-200 transition-all hover:shadow-md">
-            <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mb-4">
-              <BookOpen size={20} color="#10B981" />
+          <button 
+            onClick={() => onNavigate('vault')}
+            className="bg-white rounded-xl p-6 border border-gray-200 transition-all hover:shadow-md flex flex-col justify-between h-full"
+          >
+            <div>
+              <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mb-4">
+                <BookOpen size={20} color="#10B981" />
+              </div>
+              <h3 className="font-semibold mb-1">Open Vault</h3>
+              <p className="text-sm text-muted-foreground">Browse your full library of study materials.</p>
             </div>
-            <h3 className="font-semibold mb-1">Open Vault</h3>
-            <p className="text-sm text-muted-foreground">Browse your full library of study materials.</p>
-          </div>
+            <div className="mt-4 flex justify-end">
+              <ChevronRight size={16} color="#6366F1" />
+            </div>
+          </button>
           
-          <div className="bg-white rounded-xl p-6 border border-gray-200 transition-all hover:shadow-md">
-            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mb-4">
-              <FileText size={20} color="#3B82F6" />
+          <button 
+            onClick={() => onNavigate('vault')}
+            className="bg-white rounded-xl p-6 border border-gray-200 transition-all hover:shadow-md flex flex-col justify-between h-full"
+          >
+            <div>
+              <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+                <FileText size={20} color="#3B82F6" />
+              </div>
+              <h3 className="font-semibold mb-1">New Note</h3>
+              <p className="text-sm text-muted-foreground">Start a fresh page.</p>
             </div>
-            <h3 className="font-semibold mb-1">New Note</h3>
-            <p className="text-sm text-muted-foreground">Start a fresh page.</p>
-          </div>
+            <div className="mt-4 flex justify-end">
+              <ChevronRight size={16} color="#6366F1" />
+            </div>
+          </button>
           
-          <div className="bg-white rounded-xl p-6 border border-gray-200 transition-all hover:shadow-md">
-            <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mb-4">
-              <Zap size={20} color="#8B5CF6" />
+          <button 
+            onClick={() => onNavigate('ai')}
+            className="bg-white rounded-xl p-6 border border-gray-200 transition-all hover:shadow-md flex flex-col justify-between h-full"
+          >
+            <div>
+              <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mb-4">
+                <Zap size={20} color="#8B5CF6" />
+              </div>
+              <h3 className="font-semibold mb-1">Study AI</h3>
+              <p className="text-sm text-muted-foreground">Chat with your notes. Get summaries, quizzes, and instant answers.</p>
             </div>
-            <h3 className="font-semibold mb-1">Study AI</h3>
-            <p className="text-sm text-muted-foreground">Chat with your notes. Get summaries, quizzes, and instant answers.</p>
-          </div>
+            <div className="mt-4 flex justify-end">
+              <ChevronRight size={16} color="#6366F1" />
+            </div>
+          </button>
           
-          <div className="bg-white rounded-xl p-6 border border-gray-200 transition-all hover:shadow-md">
-            <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center mb-4">
-              <Clock size={20} color="#F59E0B" />
+          <button 
+            onClick={() => onNavigate('focus')}
+            className="bg-white rounded-xl p-6 border border-gray-200 transition-all hover:shadow-md flex flex-col justify-between h-full"
+          >
+            <div>
+              <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center mb-4">
+                <Clock size={20} color="#F59E0B" />
+              </div>
+              <h3 className="font-semibold mb-1">Focus Mode</h3>
+              <p className="text-sm text-muted-foreground">Focus on your notes without distractions.</p>
             </div>
-            <h3 className="font-semibold mb-1">Focus Mode</h3>
-            <p className="text-sm text-muted-foreground">Focus on your notes without distractions.</p>
-          </div>
+            <div className="mt-4 flex justify-end">
+              <ChevronRight size={16} color="#6366F1" />
+            </div>
+          </button>
         </div>
 
         {/* 最近笔记卡片 */}
-        <div className="bg-white rounded-xl p-6 border border-gray-200 mb-8">
-          <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center mb-4">
-            <Clock size={20} color="#6366F1" />
+        <button 
+          onClick={() => onNavigate('recent')}
+          className="bg-white rounded-xl p-6 border border-gray-200 mb-8 flex flex-col justify-between h-full"
+        >
+          <div>
+            <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center mb-4">
+              <Clock size={20} color="#6366F1" />
+            </div>
+            <h3 className="font-semibold mb-1">Recent Notes</h3>
+            <p className="text-sm text-muted-foreground">Jump back into what you were reading.</p>
           </div>
-          <h3 className="font-semibold mb-1">Recent Notes</h3>
-          <p className="text-sm text-muted-foreground">Jump back into what you were reading.</p>
-        </div>
+          <div className="mt-4 flex justify-end">
+            <ChevronRight size={16} color="#6366F1" />
+          </div>
+        </button>
       </div>
 
       <div className="mb-8">

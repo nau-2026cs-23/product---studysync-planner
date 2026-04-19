@@ -6,10 +6,17 @@ import {
   ReactNode,
 } from 'react';
 
+interface User {
+  name: string;
+  email: string;
+}
+
 interface AuthContextType {
   isAuthenticated: boolean | null;
+  user: User | null;
   setIsAuthenticated: (value: boolean) => void;
-  login: (token: string) => void;
+  setUser: (value: User | null) => void;
+  login: (token: string, user: User) => void;
   logout: () => void;
 }
 
@@ -23,6 +30,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // If no token, we know user is not authenticated
     // If token exists, return null (checking state) to verify with backend
     return token ? null : false;
+  });
+  
+  const [user, setUser] = useState<User | null>(() => {
+    const userStr = localStorage.getItem('user');
+    return userStr ? JSON.parse(userStr) : null;
   });
 
   useEffect(() => {
@@ -40,30 +52,41 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         });
         const data = await response.json();
         setIsAuthenticated(data.success);
-        if (!data.success) {
+        if (data.success && data.user) {
+          setUser(data.user);
+          localStorage.setItem('user', JSON.stringify(data.user));
+        } else {
           localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          setUser(null);
         }
       } catch (error) {
         setIsAuthenticated(false);
+        setUser(null);
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
       }
     };
     checkAuth();
   }, []);
 
-  const login = (token: string) => {
+  const login = (token: string, user: User) => {
     localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
     setIsAuthenticated(true);
+    setUser(user);
   };
 
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     setIsAuthenticated(false);
+    setUser(null);
   };
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, setIsAuthenticated, login, logout }}
+      value={{ isAuthenticated, user, setIsAuthenticated, setUser, login, logout }}
     >
       {children}
     </AuthContext.Provider>

@@ -16,6 +16,15 @@ import SmartTagsComponent from './components/tags/SmartTagsComponent';
 import FlashcardsComponent from './components/flashcards/FlashcardsComponent';
 import AISummaryComponent from './components/ai/AISummaryComponent';
 import SettingsView from './components/custom/SettingsView';
+import TemplatesView from './components/custom/TemplatesView';
+import ImportComponent from './components/imports/ImportComponent';
+import VaultView from './components/custom/VaultView';
+import DraftsView from './components/custom/DraftsView';
+import RecentView from './components/custom/RecentView';
+import SubjectsView from './components/custom/SubjectsView';
+import FocusModeView from './components/custom/FocusModeView';
+import SemestersView from './components/custom/SemestersView';
+import StudyAIView from './components/custom/StudyAIView';
 import type { AppView } from './types';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -119,7 +128,7 @@ const AppContent = () => {
         path="/dashboard/ai" 
         element={
           <ProtectedRoute>
-            <AISummaryComponent />
+            <StudyAIView />
           </ProtectedRoute>
         } 
       />
@@ -128,6 +137,81 @@ const AppContent = () => {
         element={
           <ProtectedRoute>
             <SettingsView />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/dashboard/vault" 
+        element={
+          <ProtectedRoute>
+            <VaultView />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/dashboard/drafts" 
+        element={
+          <ProtectedRoute>
+            <DraftsView />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/dashboard/recent" 
+        element={
+          <ProtectedRoute>
+            <RecentView />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/dashboard/deleted" 
+        element={
+          <ProtectedRoute>
+            <div className="space-y-6">
+              <h1 className="text-2xl font-bold">Recently Deleted</h1>
+              <p className="text-muted-foreground">Your recently deleted notes.</p>
+            </div>
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/dashboard/subjects" 
+        element={
+          <ProtectedRoute>
+            <SubjectsView />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/dashboard/semesters" 
+        element={
+          <ProtectedRoute>
+            <SemestersView />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/dashboard/focus" 
+        element={
+          <ProtectedRoute>
+            <FocusModeView />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/dashboard/templates" 
+        element={
+          <ProtectedRoute>
+            <TemplatesView />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/dashboard/import" 
+        element={
+          <ProtectedRoute>
+            <ImportComponent />
           </ProtectedRoute>
         } 
       />

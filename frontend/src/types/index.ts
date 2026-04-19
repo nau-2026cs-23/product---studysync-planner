@@ -6,7 +6,7 @@ export interface ApiResponse<T> {
 }
 
 // ─── Navigation ──────────────────────────────────────────────────────────────────
-export type AppView = 'landing' | 'dashboard' | 'schedule' | 'progress' | 'collab' | 'integrations' | 'gpa' | 'pdf' | 'tags' | 'flashcards' | 'ai';
+export type AppView = 'landing' | 'dashboard' | 'vault' | 'drafts' | 'recent' | 'schedule' | 'progress' | 'collab' | 'integrations' | 'gpa' | 'pdf' | 'tags' | 'flashcards' | 'ai' | 'focus' | 'subjects' | 'semesters' | 'settings';
 
 // ─── Course ─────────────────────────────────────────────────────────────────────
 export interface Course {

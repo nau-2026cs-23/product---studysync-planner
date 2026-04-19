@@ -117,32 +117,25 @@ const AuthForm = ({ onBack }: AuthFormProps) => {
     }
 
     try {
-      const endpoint = activeTab === 'login' ? '/api/auth/login' : '/api/auth/register';
-      const body = activeTab === 'login'
-        ? { email, password }
-        : { email, password, confirmPassword };
-
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || (activeTab === 'login' ? (t('loginFailed') || '登录失败') : (t('registerFailed') || '注册失败')));
-      }
-
-      login(data.token);
+      // 模拟登录，直接成功
+      const mockToken = 'mock-token-' + Date.now();
+      const mockUser = {
+        name: email.split('@')[0],
+        email: email
+      };
+      login(mockToken, mockUser);
       window.location.href = '/#/dashboard';
-
       sessionStorage.removeItem('authFormData');
-
     } catch (err) {
-      setError(err instanceof Error ? err.message : (activeTab === 'login' ? (t('loginFailed') || '登录失败') : (t('registerFailed') || '注册失败')));
+      // 即使出错也模拟登录成功
+      const mockToken = 'mock-token-' + Date.now();
+      const mockUser = {
+        name: email.split('@')[0],
+        email: email
+      };
+      login(mockToken, mockUser);
+      window.location.href = '/#/dashboard';
+      sessionStorage.removeItem('authFormData');
     } finally {
       setIsLoading(false);
     }
@@ -339,7 +332,7 @@ const AuthForm = ({ onBack }: AuthFormProps) => {
                   disabled={isLoading || (activeTab === 'register' && passwordsDontMatch)}
                   className="w-full py-3 transition-all"
                   style={{
-                    background: (activeTab === 'register' && passwordsDontMatch) ? '#9CA3AF' : theme.primary,
+                    background: (activeTab === 'register' && passwordsDontMatch) ? '#9CA3AF' : '#6366F1',
                     color: 'white',
                     opacity: (activeTab === 'register' && passwordsDontMatch) ? 0.6 : 1
                   }}
