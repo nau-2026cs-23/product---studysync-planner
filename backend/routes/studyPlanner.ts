@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import {
   coursesRepo, studySessionsRepo, deadlinesRepo, progressLogsRepo,
-  thesisMilestonesRepo, collabTasksRepo, gpaEntriesRepo,
+  thesisMilestonesRepo, collabTasksRepo, gpaEntriesRepo, notesRepo, draftsRepo,
 } from '../repositories/studyPlanner';
 import {
   insertCourseSchema, updateCourseSchema,
@@ -11,6 +11,8 @@ import {
   insertThesisMilestoneSchema, updateThesisMilestoneSchema,
   insertCollabTaskSchema, updateCollabTaskSchema,
   insertGpaEntrySchema, updateGpaEntrySchema,
+  insertNoteSchema, updateNoteSchema,
+  insertDraftSchema, updateDraftSchema,
 } from '../db/schema';
 
 const router = Router();
@@ -249,5 +251,77 @@ router.delete('/gpa/:id', async (req: Request, res: Response) => {
     res.json({ success: true, data: null });
   } catch (e) { res.status(500).json({ success: false, message: String(e) }); }
 });
+
+// ─── Notes ───────────────────────────────────────────────────────────────────
+router.get('/notes', async (_req: Request, res: Response) => {
+  try {
+    const data = await notesRepo.getAll();
+    res.json({ success: true, data });
+  } catch (e) { res.status(500).json({ success: false, message: String(e) }); }
+});
+
+router.post('/notes', async (req: Request, res: Response) => {
+  try {
+    const parsed = insertNoteSchema.safeParse(req.body);
+    if (!parsed.success) return res.status(400).json({ success: false, message: parsed.error.message });
+    const data = await notesRepo.create(parsed.data);
+    res.status(201).json({ success: true, data });
+  } catch (e) { res.status(500).json({ success: false, message: String(e) }); }
+});
+
+router.put('/notes/:id', async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id as string;
+    const parsed = updateNoteSchema.safeParse(req.body);
+    if (!parsed.success) return res.status(400).json({ success: false, message: parsed.error.message });
+    const data = await notesRepo.update(id, parsed.data as any);
+    res.json({ success: true, data });
+  } catch (e) { res.status(500).json({ success: false, message: String(e) }); }
+});
+
+router.delete('/notes/:id', async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id as string;
+    await notesRepo.delete(id);
+    res.json({ success: true, data: null });
+  } catch (e) { res.status(500).json({ success: false, message: String(e) }); }
+});
+
+// ─── Drafts ──────────────────────────────────────────────────────────────────
+router.get('/drafts', async (_req: Request, res: Response) => {
+  try {
+    const data = await draftsRepo.getAll();
+    res.json({ success: true, data });
+  } catch (e) { res.status(500).json({ success: false, message: String(e) }); }
+});
+
+router.post('/drafts', async (req: Request, res: Response) => {
+  try {
+    const parsed = insertDraftSchema.safeParse(req.body);
+    if (!parsed.success) return res.status(400).json({ success: false, message: parsed.error.message });
+    const data = await draftsRepo.create(parsed.data);
+    res.status(201).json({ success: true, data });
+  } catch (e) { res.status(500).json({ success: false, message: String(e) }); }
+});
+
+router.put('/drafts/:id', async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id as string;
+    const parsed = updateDraftSchema.safeParse(req.body);
+    if (!parsed.success) return res.status(400).json({ success: false, message: parsed.error.message });
+    const data = await draftsRepo.update(id, parsed.data as any);
+    res.json({ success: true, data });
+  } catch (e) { res.status(500).json({ success: false, message: String(e) }); }
+});
+
+router.delete('/drafts/:id', async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id as string;
+    await draftsRepo.delete(id);
+    res.json({ success: true, data: null });
+  } catch (e) { res.status(500).json({ success: false, message: String(e) }); }
+});
+
+
 
 export default router;

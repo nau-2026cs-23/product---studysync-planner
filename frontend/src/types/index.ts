@@ -135,6 +135,8 @@ export interface Integration {
   createdAt: string;
 }
 
+
+
 // ─── Form types ─────────────────────────────────────────────────────────────────
 export interface SessionFormData {
   title: string;

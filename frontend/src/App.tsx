@@ -16,15 +16,18 @@ import SmartTagsComponent from './components/tags/SmartTagsComponent';
 import FlashcardsComponent from './components/flashcards/FlashcardsComponent';
 import AISummaryComponent from './components/ai/AISummaryComponent';
 import SettingsView from './components/custom/SettingsView';
-import TemplatesView from './components/custom/TemplatesView';
 import ImportComponent from './components/imports/ImportComponent';
 import VaultView from './components/custom/VaultView';
 import DraftsView from './components/custom/DraftsView';
 import RecentView from './components/custom/RecentView';
+import RecentlyDeletedView from './components/custom/RecentlyDeletedView';
 import SubjectsView from './components/custom/SubjectsView';
 import FocusModeView from './components/custom/FocusModeView';
 import SemestersView from './components/custom/SemestersView';
 import StudyAIView from './components/custom/StudyAIView';
+import TemplatesView from './components/custom/TemplatesView';
+import SubjectDetailView from './components/custom/SubjectDetailView';
+import SemesterDetailView from './components/custom/SemesterDetailView';
 import type { AppView } from './types';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -168,10 +171,7 @@ const AppContent = () => {
         path="/dashboard/deleted" 
         element={
           <ProtectedRoute>
-            <div className="space-y-6">
-              <h1 className="text-2xl font-bold">Recently Deleted</h1>
-              <p className="text-muted-foreground">Your recently deleted notes.</p>
-            </div>
+            <RecentlyDeletedView />
           </ProtectedRoute>
         } 
       />
@@ -179,7 +179,15 @@ const AppContent = () => {
         path="/dashboard/subjects" 
         element={
           <ProtectedRoute>
-            <SubjectsView />
+            <SubjectsView onNavigate={handleNavigate} />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/dashboard/subjects/:id" 
+        element={
+          <ProtectedRoute>
+            <SubjectDetailView onNavigate={handleNavigate} />
           </ProtectedRoute>
         } 
       />
@@ -187,7 +195,15 @@ const AppContent = () => {
         path="/dashboard/semesters" 
         element={
           <ProtectedRoute>
-            <SemestersView />
+            <SemestersView onNavigate={handleNavigate} />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/dashboard/semesters/:id" 
+        element={
+          <ProtectedRoute>
+            <SemesterDetailView onNavigate={handleNavigate} />
           </ProtectedRoute>
         } 
       />
@@ -200,18 +216,18 @@ const AppContent = () => {
         } 
       />
       <Route 
-        path="/dashboard/templates" 
-        element={
-          <ProtectedRoute>
-            <TemplatesView />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
         path="/dashboard/import" 
         element={
           <ProtectedRoute>
             <ImportComponent />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/dashboard/templates" 
+        element={
+          <ProtectedRoute>
+            <TemplatesView onNavigate={handleNavigate} />
           </ProtectedRoute>
         } 
       />

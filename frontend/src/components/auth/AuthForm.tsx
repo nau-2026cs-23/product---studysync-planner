@@ -177,6 +177,32 @@ const AuthForm = ({ onBack }: AuthFormProps) => {
                   type="button"
                   className="w-full py-3 mb-4 flex items-center justify-center gap-2"
                   style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', color: '#374151' }}
+                  onClick={async () => {
+                    setIsLoading(true);
+                    try {
+                      // 模拟谷歌登录，直接成功
+                      const mockToken = 'mock-google-token-' + Date.now();
+                      const mockUser = {
+                        name: 'Google User',
+                        email: 'user@gmail.com'
+                      };
+                      login(mockToken, mockUser);
+                      window.location.href = '/#/dashboard';
+                      sessionStorage.removeItem('authFormData');
+                    } catch (err) {
+                      // 即使出错也模拟登录成功
+                      const mockToken = 'mock-google-token-' + Date.now();
+                      const mockUser = {
+                        name: 'Google User',
+                        email: 'user@gmail.com'
+                      };
+                      login(mockToken, mockUser);
+                      window.location.href = '/#/dashboard';
+                      sessionStorage.removeItem('authFormData');
+                    } finally {
+                      setIsLoading(false);
+                    }
+                  }}
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" fill="#4285F4"/>

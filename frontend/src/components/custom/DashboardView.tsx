@@ -118,7 +118,7 @@ export default function DashboardView({ onNavigate }: Props) {
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
           <div className="w-8 h-8 rounded-full border-2 border-t-transparent animate-spin mx-auto mb-3" style={{ borderColor: '#4F46E5', borderTopColor: 'transparent' }} />
-          <p className="text-sm" style={{ color: '#6B7280' }}>Loading dashboard...</p>
+          <p className="text-sm" style={{ color: '#6B7280' }}>加载仪表板中...</p>
         </div>
       </div>
     );
@@ -137,7 +137,7 @@ export default function DashboardView({ onNavigate }: Props) {
       <div className="mb-8 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
-          <span className="text-sm font-medium">VAULT LIVE</span>
+          <span className="text-sm font-medium">保险库在线</span>
         </div>
         <div className="text-sm">
           {new Date().toLocaleTimeString()}
@@ -147,27 +147,27 @@ export default function DashboardView({ onNavigate }: Props) {
       {/* Vault就绪信息 */}
       <div className="mb-8 text-center">
         <h1 className="text-3xl sm:text-4xl font-bold mb-2">
-          Your vault is <span style={{ color: '#10B981' }}>ready</span>.
+          您的保险库已 <span style={{ color: '#10B981' }}>就绪</span>。
         </h1>
         <p className="text-sm text-muted-foreground mb-6">
-          Everything is synced and waiting. Pick up right where you left off.
+          所有内容已同步并等待。从您上次离开的地方继续。
         </p>
         
         {/* 统计数据 */}
         <div className="flex justify-center gap-6 mb-8">
           <div className="flex flex-col items-center">
             <span className="text-xl font-bold">{noteCount}</span>
-            <span className="text-xs text-muted-foreground">NOTES</span>
+            <span className="text-xs text-muted-foreground">笔记</span>
           </div>
           <div className="w-px h-8 bg-gray-200" />
           <div className="flex flex-col items-center">
             <span className="text-xl font-bold">{subjectCount}</span>
-            <span className="text-xs text-muted-foreground">SUBJECTS</span>
+            <span className="text-xs text-muted-foreground">科目</span>
           </div>
           <div className="w-px h-8 bg-gray-200" />
           <div className="flex flex-col items-center">
-            <span className="text-xl font-bold">{streakDays}d</span>
-            <span className="text-xs text-muted-foreground">STREAK</span>
+            <span className="text-xl font-bold">{streakDays}天</span>
+            <span className="text-xs text-muted-foreground">连续学习</span>
           </div>
         </div>
 
@@ -181,8 +181,8 @@ export default function DashboardView({ onNavigate }: Props) {
               <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mb-4">
                 <BookOpen size={20} color="#10B981" />
               </div>
-              <h3 className="font-semibold mb-1">Open Vault</h3>
-              <p className="text-sm text-muted-foreground">Browse your full library of study materials.</p>
+              <h3 className="font-semibold mb-1">打开保险库</h3>
+              <p className="text-sm text-muted-foreground">浏览您的完整学习资料库。</p>
             </div>
             <div className="mt-4 flex justify-end">
               <ChevronRight size={16} color="#6366F1" />
@@ -197,8 +197,8 @@ export default function DashboardView({ onNavigate }: Props) {
               <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mb-4">
                 <FileText size={20} color="#3B82F6" />
               </div>
-              <h3 className="font-semibold mb-1">New Note</h3>
-              <p className="text-sm text-muted-foreground">Start a fresh page.</p>
+              <h3 className="font-semibold mb-1">新建笔记</h3>
+              <p className="text-sm text-muted-foreground">开始一个新页面。</p>
             </div>
             <div className="mt-4 flex justify-end">
               <ChevronRight size={16} color="#6366F1" />
@@ -213,8 +213,8 @@ export default function DashboardView({ onNavigate }: Props) {
               <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mb-4">
                 <Zap size={20} color="#8B5CF6" />
               </div>
-              <h3 className="font-semibold mb-1">Study AI</h3>
-              <p className="text-sm text-muted-foreground">Chat with your notes. Get summaries, quizzes, and instant answers.</p>
+              <h3 className="font-semibold mb-1">学习 AI</h3>
+              <p className="text-sm text-muted-foreground">与您的笔记聊天。获取摘要、测验和即时答案。</p>
             </div>
             <div className="mt-4 flex justify-end">
               <ChevronRight size={16} color="#6366F1" />
@@ -229,8 +229,8 @@ export default function DashboardView({ onNavigate }: Props) {
               <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center mb-4">
                 <Clock size={20} color="#F59E0B" />
               </div>
-              <h3 className="font-semibold mb-1">Focus Mode</h3>
-              <p className="text-sm text-muted-foreground">Focus on your notes without distractions.</p>
+              <h3 className="font-semibold mb-1">专注模式</h3>
+              <p className="text-sm text-muted-foreground">专注于您的笔记，不受干扰。</p>
             </div>
             <div className="mt-4 flex justify-end">
               <ChevronRight size={16} color="#6366F1" />
@@ -247,8 +247,8 @@ export default function DashboardView({ onNavigate }: Props) {
             <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center mb-4">
               <Clock size={20} color="#6366F1" />
             </div>
-            <h3 className="font-semibold mb-1">Recent Notes</h3>
-            <p className="text-sm text-muted-foreground">Jump back into what you were reading.</p>
+            <h3 className="font-semibold mb-1">最近笔记</h3>
+            <p className="text-sm text-muted-foreground">回到您正在阅读的内容。</p>
           </div>
           <div className="mt-4 flex justify-end">
             <ChevronRight size={16} color="#6366F1" />

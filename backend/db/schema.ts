@@ -168,6 +168,48 @@ export const updateGpaEntrySchema = insertGpaEntrySchema.partial();
 export type GpaEntry = typeof gpaEntries.$inferSelect;
 export type InsertGpaEntry = typeof gpaEntries.$inferInsert;
 
+// ─── Notes ───────────────────────────────────────────────────────────────────
+export const notes = sqliteTable('Notes', {
+  id: text('id').primaryKey().default(() => generateId()),
+  title: text('title').notNull(),
+  content: text('content').notNull(),
+  subject: text('subject'),
+  subjectId: text('subject_id'),
+  semester: text('semester'),
+  tags: text('tags'),
+  userId: text('user_id').references(() => users.id, { onDelete: 'cascade' }),
+  createdAt: text('created_at').default(() => new Date().toISOString()).notNull(),
+  updatedAt: text('updated_at').default(() => new Date().toISOString()).notNull(),
+});
+
+export const insertNoteSchema = createInsertSchema(notes, {
+  title: z.string().min(1),
+  content: z.string().min(1),
+});
+export const updateNoteSchema = insertNoteSchema.partial();
+export type Note = typeof notes.$inferSelect;
+export type InsertNote = typeof notes.$inferInsert;
+
+// ─── Drafts ──────────────────────────────────────────────────────────────────
+export const drafts = sqliteTable('Drafts', {
+  id: text('id').primaryKey().default(() => generateId()),
+  title: text('title').notNull(),
+  content: text('content').notNull(),
+  semesterId: text('semester_id'),
+  subjectId: text('subject_id'),
+  userId: text('user_id').references(() => users.id, { onDelete: 'cascade' }),
+  createdAt: text('created_at').default(() => new Date().toISOString()).notNull(),
+  updatedAt: text('updated_at').default(() => new Date().toISOString()).notNull(),
+});
+
+export const insertDraftSchema = createInsertSchema(drafts, {
+  title: z.string().min(1),
+  content: z.string().min(1),
+});
+export const updateDraftSchema = insertDraftSchema.partial();
+export type Draft = typeof drafts.$inferSelect;
+export type InsertDraft = typeof drafts.$inferInsert;
+
 // ─── Users ───────────────────────────────────────────────────────────────────
 export const users = sqliteTable('Users', {
   id: text('id').primaryKey().default(() => generateId()),
@@ -192,3 +234,5 @@ export const loginUserSchema = z.object({
 });
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
+
+

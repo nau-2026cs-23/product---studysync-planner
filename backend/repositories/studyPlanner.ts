@@ -133,3 +133,37 @@ export const gpaEntriesRepo = {
     return result.length > 0;
   },
 };
+
+// ─── Notes ───────────────────────────────────────────────────────────────────
+export const notesRepo = {
+  async getAll() {
+    return db.select('notes', {}).sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+  },
+  async create(data: any) {
+    return db.insert('notes', data);
+  },
+  async update(id: string, data: any) {
+    return db.update('notes', { id }, data);
+  },
+  async delete(id: string) {
+    const result = db.delete('notes', { id });
+    return result.length > 0;
+  },
+};
+
+// ─── Drafts ──────────────────────────────────────────────────────────────────
+export const draftsRepo = {
+  async getAll() {
+    return db.select('drafts', {}).sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+  },
+  async create(data: any) {
+    return db.insert('drafts', data);
+  },
+  async update(id: string, data: any) {
+    return db.update('drafts', { id }, data);
+  },
+  async delete(id: string) {
+    const result = db.delete('drafts', { id });
+    return result.length > 0;
+  },
+};

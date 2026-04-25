@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { FileText, Upload, CheckCircle2, X, Search, Download, Edit3 } from 'lucide-react';
+import { FileText, Upload, CheckCircle2, X, Search, Download, Edit3, Eye, FilePen, Brain, Tag } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 interface PDFDocument {
@@ -11,6 +11,7 @@ interface PDFDocument {
   pages: number;
   annotations: number;
   status: 'uploaded' | 'processing' | 'error';
+  previewUrl?: string;
 }
 
 const SAMPLE_PDFS: PDFDocument[] = [
@@ -50,6 +51,10 @@ export default function PDFImportComponent() {
   const [searchTerm, setSearchTerm] = useState('');
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [showPreviewModal, setShowPreviewModal] = useState(false);
+  const [selectedPdf, setSelectedPdf] = useState<PDFDocument | null>(null);
+  const [showConvertModal, setShowConvertModal] = useState(false);
+  const [showAnnotateModal, setShowAnnotateModal] = useState(false);
 
   function handleDragOver(e: React.DragEvent) {
     e.preventDefault();
@@ -112,12 +117,32 @@ export default function PDFImportComponent() {
     toast.success(t('pdfDeleted'));
   }
 
-  function handleAnnotate(id: string) {
-    toast.success(t('annotatingPdf', { name: pdfs.find(pdf => pdf.id === id)?.name }));
-  }
-
   function handleDownload(id: string) {
     toast.success(t('downloadingPdf', { name: pdfs.find(pdf => pdf.id === id)?.name }));
+  }
+
+  function handlePreview(id: string) {
+    const pdf = pdfs.find(pdf => pdf.id === id);
+    if (pdf) {
+      setSelectedPdf(pdf);
+      setShowPreviewModal(true);
+    }
+  }
+
+  function handleConvertToNotes(id: string) {
+    const pdf = pdfs.find(pdf => pdf.id === id);
+    if (pdf) {
+      setSelectedPdf(pdf);
+      setShowConvertModal(true);
+    }
+  }
+
+  function handleAnnotate(id: string) {
+    const pdf = pdfs.find(pdf => pdf.id === id);
+    if (pdf) {
+      setSelectedPdf(pdf);
+      setShowAnnotateModal(true);
+    }
   }
 
   const filteredPdfs = pdfs.filter(pdf =>
@@ -221,13 +246,34 @@ export default function PDFImportComponent() {
                 </div>
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={() => handleAnnotate(pdf.id)}
+                    onClick={() => handlePreview(pdf.id)}
                     className="p-2 rounded-lg transition-all"
                     style={{ color: '#64748B' }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = '#4F46E5')}
                     onMouseLeave={(e) => (e.currentTarget.style.color = '#64748B')}
+                    title="预览"
                   >
-                    <Edit3 size={16} />
+                    <Eye size={16} />
+                  </button>
+                  <button
+                    onClick={() => handleConvertToNotes(pdf.id)}
+                    className="p-2 rounded-lg transition-all"
+                    style={{ color: '#64748B' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = '#10B981')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = '#64748B')}
+                    title="转换为笔记"
+                  >
+                    <Brain size={16} />
+                  </button>
+                  <button
+                    onClick={() => handleAnnotate(pdf.id)}
+                    className="p-2 rounded-lg transition-all"
+                    style={{ color: '#64748B' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = '#F59E0B')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = '#64748B')}
+                    title="标注"
+                  >
+                    <FilePen size={16} />
                   </button>
                   <button
                     onClick={() => handleDownload(pdf.id)}
@@ -235,6 +281,7 @@ export default function PDFImportComponent() {
                     style={{ color: '#64748B' }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = '#10B981')}
                     onMouseLeave={(e) => (e.currentTarget.style.color = '#64748B')}
+                    title="下载"
                   >
                     <Download size={16} />
                   </button>
@@ -244,6 +291,7 @@ export default function PDFImportComponent() {
                     style={{ color: '#64748B' }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = '#EF4444')}
                     onMouseLeave={(e) => (e.currentTarget.style.color = '#64748B')}
+                    title="删除"
                   >
                     <X size={16} />
                   </button>
@@ -301,6 +349,154 @@ export default function PDFImportComponent() {
                 style={{ border: '1px solid #1E2D45', color: '#64748B', opacity: uploading ? 0.7 : 1 }}
               >
                 {t('cancel')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* PDF Preview Modal */}
+      {showPreviewModal && selectedPdf && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.7)' }}>
+          <div className="w-full max-w-4xl max-h-[80vh] rounded-2xl p-6 overflow-hidden" style={{ background: '#131929', border: '1px solid #1E2D45' }}>
+            <div className="flex items-center justify-between mb-5">
+              <h3 className="font-semibold text-lg">PDF 预览: {selectedPdf.name}</h3>
+              <button onClick={() => setShowPreviewModal(false)}>
+                <X size={20} color="#64748B" />
+              </button>
+            </div>
+            <div className="w-full h-[60vh] bg-white rounded-lg flex items-center justify-center">
+              <div className="text-center p-8">
+                <FileText size={64} color="#4F46E5" className="mx-auto mb-4" />
+                <h4 className="font-medium mb-2">PDF 预览功能</h4>
+                <p className="text-sm text-gray-500 mb-4">{selectedPdf.name}</p>
+                <p className="text-sm text-gray-500">{selectedPdf.pages} 页 | {selectedPdf.size}</p>
+              </div>
+            </div>
+            <div className="flex justify-end gap-3 mt-6">
+              <button
+                onClick={() => setShowPreviewModal(false)}
+                className="px-4 py-2 rounded-xl text-sm font-medium"
+                style={{ border: '1px solid #1E2D45', color: '#64748B' }}
+              >
+                关闭
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* PDF Convert to Notes Modal */}
+      {showConvertModal && selectedPdf && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.7)' }}>
+          <div className="w-full max-w-md rounded-2xl p-6" style={{ background: '#131929', border: '1px solid #1E2D45' }}>
+            <div className="flex items-center justify-between mb-5">
+              <h3 className="font-semibold text-lg">转换为笔记: {selectedPdf.name}</h3>
+              <button onClick={() => setShowConvertModal(false)}>
+                <X size={20} color="#64748B" />
+              </button>
+            </div>
+            <div className="space-y-4">
+              <div className="rounded-xl p-6 text-center" style={{ background: '#1E2D45' }}>
+                <Brain size={32} style={{ color: '#10B981' }} className="mx-auto mb-3" />
+                <h4 className="font-medium mb-1">AI 笔记生成</h4>
+                <p className="text-sm mb-4" style={{ color: '#64748B' }}>将 PDF 内容转换为结构化笔记</p>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm">提取主要内容</span>
+                    <input type="checkbox" defaultChecked />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm">生成摘要</span>
+                    <input type="checkbox" defaultChecked />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm">识别关键概念</span>
+                    <input type="checkbox" defaultChecked />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm">生成闪卡</span>
+                    <input type="checkbox" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex gap-3 mt-6">
+              <button
+                onClick={() => setShowConvertModal(false)}
+                className="flex-1 py-2.5 rounded-xl text-sm font-medium"
+                style={{ border: '1px solid #1E2D45', color: '#64748B' }}
+              >
+                取消
+              </button>
+              <button
+                onClick={() => {
+                  setShowConvertModal(false);
+                  toast.success('PDF 已成功转换为笔记');
+                }}
+                className="flex-1 py-2.5 rounded-xl text-sm font-medium"
+                style={{ background: '#10B981', color: 'white' }}
+              >
+                转换
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* PDF Annotate Modal */}
+      {showAnnotateModal && selectedPdf && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.7)' }}>
+          <div className="w-full max-w-4xl max-h-[80vh] rounded-2xl p-6 overflow-hidden" style={{ background: '#131929', border: '1px solid #1E2D45' }}>
+            <div className="flex items-center justify-between mb-5">
+              <h3 className="font-semibold text-lg">标注 PDF: {selectedPdf.name}</h3>
+              <button onClick={() => setShowAnnotateModal(false)}>
+                <X size={20} color="#64748B" />
+              </button>
+            </div>
+            <div className="flex h-[60vh] gap-4">
+              {/* 标注工具 */}
+              <div className="w-16 flex flex-col items-center gap-4 p-2 rounded-lg" style={{ background: '#1E2D45' }}>
+                <button className="p-2 rounded-lg bg-blue-500 text-white" title="高亮">
+                  <Tag size={16} />
+                </button>
+                <button className="p-2 rounded-lg" style={{ color: '#64748B' }} title="下划线">
+                  <Edit3 size={16} />
+                </button>
+                <button className="p-2 rounded-lg" style={{ color: '#64748B' }} title="笔记">
+                  <FileText size={16} />
+                </button>
+                <button className="p-2 rounded-lg" style={{ color: '#64748B' }} title="橡皮擦">
+                  <X size={16} />
+                </button>
+              </div>
+              {/* PDF 内容 */}
+              <div className="flex-1 bg-white rounded-lg flex items-center justify-center">
+                <div className="text-center p-8">
+                  <FilePen size={64} color="#F59E0B" className="mx-auto mb-4" />
+                  <h4 className="font-medium mb-2">PDF 标注功能</h4>
+                  <p className="text-sm text-gray-500 mb-4">{selectedPdf.name}</p>
+                  <p className="text-sm text-gray-500">使用左侧工具进行标注</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-end gap-3 mt-6">
+              <button
+                onClick={() => setShowAnnotateModal(false)}
+                className="px-4 py-2 rounded-xl text-sm font-medium"
+                style={{ border: '1px solid #1E2D45', color: '#64748B' }}
+              >
+                取消
+              </button>
+              <button
+                onClick={() => {
+                  setShowAnnotateModal(false);
+                  toast.success('PDF 标注已保存');
+                }}
+                className="px-4 py-2 rounded-xl text-sm font-medium"
+                style={{ background: '#F59E0B', color: 'white' }}
+              >
+                保存标注
               </button>
             </div>
           </div>

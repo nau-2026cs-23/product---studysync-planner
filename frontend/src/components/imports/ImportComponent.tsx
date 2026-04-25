@@ -29,44 +29,44 @@ const ImportComponent = () => {
     if (activeTab === 'document' && documentFile) {
       // 模拟文档导入
       setTimeout(() => {
-        setImportStatus({ status: 'success', message: 'Document imported successfully!' });
+        setImportStatus({ status: 'success', message: '文档导入成功！' });
         setDocumentFile(null);
       }, 1000);
     } else if (activeTab === 'link' && linkUrl) {
       // 模拟链接导入
       setTimeout(() => {
-        setImportStatus({ status: 'success', message: 'Link imported successfully!' });
+        setImportStatus({ status: 'success', message: '链接导入成功！' });
         setLinkUrl('');
       }, 1000);
     } else {
-      setImportStatus({ status: 'error', message: 'Please select a document or enter a link.' });
+      setImportStatus({ status: 'error', message: '请选择文档或输入链接。' });
     }
   };
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">{t('import') || 'Import'}</h1>
+      <h1 className="text-2xl font-bold">{t('import') || '导入'}</h1>
 
       <Card>
         <CardHeader>
-          <CardTitle>Import Content</CardTitle>
+          <CardTitle>导入内容</CardTitle>
         </CardHeader>
         <CardContent>
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="document">
                 <FileText size={16} className="mr-2" />
-                Document
+                文档
               </TabsTrigger>
               <TabsTrigger value="link">
                 <Link size={16} className="mr-2" />
-                Link
+                链接
               </TabsTrigger>
             </TabsList>
             <TabsContent value="document" className="mt-4">
               <div className="border-2 border-dashed rounded-lg p-6 text-center">
                 <Upload size={48} className="mx-auto mb-4 text-muted-foreground" />
-                <p className="mb-4">Drag and drop your document here, or click to browse</p>
+                <p className="mb-4">将文档拖放到此处，或点击浏览</p>
                 <input
                   type="file"
                   accept=".pdf,.doc,.docx,.txt"
@@ -75,11 +75,11 @@ const ImportComponent = () => {
                   id="document-upload"
                 />
                 <Button onClick={() => document.getElementById('document-upload')?.click()}>
-                  Browse Files
+                  浏览文件
                 </Button>
                 {documentFile && (
                   <p className="mt-4 text-sm text-muted-foreground">
-                    Selected: {documentFile.name}
+                    已选择: {documentFile.name}
                   </p>
                 )}
               </div>
@@ -88,18 +88,18 @@ const ImportComponent = () => {
               <div className="space-y-4">
                 <div>
                   <label htmlFor="link-url" className="block text-sm font-medium mb-2">
-                    Link URL
+                    链接地址
                   </label>
                   <Input
                     id="link-url"
                     type="url"
-                    placeholder="Enter a URL to import"
+                    placeholder="输入要导入的URL"
                     value={linkUrl}
                     onChange={handleLinkChange}
                   />
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Enter a URL to import content from the web.
+                  输入URL以从网络导入内容。
                 </p>
               </div>
             </TabsContent>
@@ -125,14 +125,14 @@ const ImportComponent = () => {
             onClick={handleImport}
             disabled={!((activeTab === 'document' && documentFile) || (activeTab === 'link' && linkUrl))}
           >
-            Import
+            导入
           </Button>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>Recently Imported</CardTitle>
+          <CardTitle>最近导入</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -140,24 +140,24 @@ const ImportComponent = () => {
               <div className="flex items-center gap-3">
                 <FileText size={20} className="text-primary" />
                 <div>
-                  <p className="font-medium">Study Guide.pdf</p>
-                  <p className="text-xs text-muted-foreground">Imported 2 hours ago</p>
+                  <p className="font-medium">学习指南.pdf</p>
+                  <p className="text-xs text-muted-foreground">2小时前导入</p>
                 </div>
               </div>
               <Button size="sm" variant="ghost">
-                Open
+                打开
               </Button>
             </div>
             <div className="flex items-center justify-between p-3 border rounded-md">
               <div className="flex items-center gap-3">
                 <Link size={20} className="text-primary" />
                 <div>
-                  <p className="font-medium">React Documentation</p>
-                  <p className="text-xs text-muted-foreground">Imported 1 day ago</p>
+                  <p className="font-medium">React文档</p>
+                  <p className="text-xs text-muted-foreground">1天前导入</p>
                 </div>
               </div>
               <Button size="sm" variant="ghost">
-                Open
+                打开
               </Button>
             </div>
           </div>

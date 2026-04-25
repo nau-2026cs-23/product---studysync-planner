@@ -66,3 +66,15 @@ export const getTeamMembers = () => req<TeamMember[]>(`${BASE}/team-members`);
 export const getIntegrations = () => req<Integration[]>(`${BASE}/integrations`);
 export const createIntegration = (data: Partial<Integration>) => req<Integration>(`${BASE}/integrations`, { method: 'POST', body: JSON.stringify(data) });
 export const deleteIntegration = (id: string) => req<null>(`${BASE}/integrations/${id}`, { method: 'DELETE' });
+
+// ─── Notes ───────────────────────────────────────────────────────────────────
+export const getNotes = () => req<any[]>(`${BASE}/notes`);
+export const createNote = (data: Partial<any>) => req<any>(`${BASE}/notes`, { method: 'POST', body: JSON.stringify(data) });
+export const updateNote = (id: string, data: Partial<any>) => req<any>(`${BASE}/notes/${id}`, { method: 'PUT', body: JSON.stringify(data) });
+export const deleteNote = (id: string) => req<null>(`${BASE}/notes/${id}`, { method: 'DELETE' });
+
+// ─── Drafts ──────────────────────────────────────────────────────────────────
+export const getDrafts = () => req<any[]>(`${BASE}/drafts`);
+export const createDraft = (data: Partial<any>) => req<any>(`${BASE}/drafts`, { method: 'POST', body: JSON.stringify(data) });
+export const updateDraft = (id: string, data: Partial<any>) => req<any>(`${BASE}/drafts/${id}`, { method: 'PUT', body: JSON.stringify(data) });
+export const deleteDraft = (id: string) => req<null>(`${BASE}/drafts/${id}`, { method: 'DELETE' });

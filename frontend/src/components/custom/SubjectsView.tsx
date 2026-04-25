@@ -2,13 +2,15 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
-import { Search, Book, FileText, Edit, Trash2, Plus } from 'lucide-react';
+import { Search, Book, FileText, Edit, Trash2, Plus, BookOpen } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import type { AppView } from '@/types';
 
 interface Subject {
   id: string;
   name: string;
   notes: number;
+  drafts: number;
   isActive: boolean;
   color: string;
 }
@@ -24,13 +26,18 @@ interface Note {
   createdAt: Date;
 }
 
-const SubjectsView = () => {
+interface Props {
+  onNavigate: (view: AppView) => void;
+  onNavigateToSubject?: (subjectId: string) => void;
+}
+
+const SubjectsView = ({ onNavigate, onNavigateToSubject }: Props) => {
   const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState('');
   const [subjects, setSubjects] = useState<Subject[]>([
-    { id: '1', name: '高数', notes: 0, isActive: true, color: '#4F46E5' },
-    { id: '2', name: '英语', notes: 0, isActive: false, color: '#10B981' },
-    { id: '3', name: '物理', notes: 0, isActive: false, color: '#F59E0B' }
+    { id: '1', name: '高数', notes: 3, drafts: 2, isActive: true, color: '#4F46E5' },
+    { id: '2', name: '英语', notes: 1, drafts: 0, isActive: false, color: '#10B981' },
+    { id: '3', name: '物理', notes: 0, drafts: 1, isActive: false, color: '#F59E0B' }
   ]);
   const [notes, setNotes] = useState<Note[]>([]);
   const [editingSubject, setEditingSubject] = useState<Subject | null>(null);
@@ -44,6 +51,7 @@ const SubjectsView = () => {
       id: Date.now().toString(),
       name: subjectName,
       notes: 0,
+      drafts: 0,
       isActive: true,
       color: subjectColor
     };
@@ -162,7 +170,14 @@ const SubjectsView = () => {
         {subjects.map((subject) => {
           const subjectNotes = getSubjectNotes(subject.id);
           return (
-            <Card key={subject.id} className="border rounded-lg overflow-hidden">
+            <Card 
+              key={subject.id} 
+              className="border rounded-lg overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+              onClick={() => {
+                // 跳转到科目详情页面
+                window.location.href = `/dashboard/subjects/${subject.id}`;
+              }}
+            >
               <CardContent className="p-4">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
@@ -172,20 +187,46 @@ const SubjectsView = () => {
                     <div>
                       <h3 className="font-medium text-lg">{subject.name}</h3>
                       <div className="flex items-center gap-1 mt-2 text-sm text-muted-foreground">
-                        <FileText size={14} />
-                        <span>{subjectNotes.length} notes</span>
-                      </div>
+                      <FileText size={14} />
+                      <span>{subject.drafts} 草稿 · {subject.notes} 笔记</span>
+                    </div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <button 
-                      onClick={() => handleEditSubject(subject)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onNavigate('drafts');
+                      }}
+                      className="p-1 rounded hover:bg-accent"
+                      title="添加草稿"
+                    >
+                      <FileText size={16} />
+                    </button>
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onNavigate('vault');
+                      }}
+                      className="p-1 rounded hover:bg-accent"
+                      title="添加笔记"
+                    >
+                      <BookOpen size={16} />
+                    </button>
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleEditSubject(subject);
+                      }}
                       className="p-1 rounded hover:bg-accent"
                     >
                       <Edit size={16} />
                     </button>
                     <button 
-                      onClick={() => handleDeleteSubject(subject.id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteSubject(subject.id);
+                      }}
                       className="p-1 rounded hover:bg-accent"
                     >
                       <Trash2 size={16} />
@@ -203,7 +244,10 @@ const SubjectsView = () => {
                       <div key={note.id} className="flex items-center justify-between p-2 bg-muted rounded">
                         <span className="text-sm truncate">{note.title}</span>
                         <button 
-                          onClick={() => handleRemoveNoteFromSubject(note.id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRemoveNoteFromSubject(note.id);
+                          }}
                           className="p-1 rounded hover:bg-accent"
                         >
                           <Trash2 size={14} />

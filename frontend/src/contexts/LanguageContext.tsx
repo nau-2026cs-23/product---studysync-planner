@@ -637,6 +637,24 @@ const translations = {
     taskTitlePlaceholder: '任务标题...',
     taskDescriptionPlaceholder: '可选描述...',
     addTeamTask: '添加团队任务',
+
+    // Smart Tags
+    searchTags: '搜索标签...',
+    aiTagSuggestions: 'AI标签建议',
+    yourTags: '您的标签 ({count})',
+    addYourFirstTag: '添加您的第一个标签',
+    allNotes: '所有笔记',
+    notesWithTag: '包含标签 "{tag}" 的笔记',
+    noNotesWithTag: '没有包含标签 "{tag}" 的笔记',
+    tagNameRequired: '请输入标签名称',
+    tagAdded: '标签 "{name}" 已添加',
+    tagUpdated: '标签已更新',
+    cannotDeleteSystemTag: '不能删除系统标签',
+    tagDeleted: '标签已删除',
+    tagAddedToNote: '标签 "{tag}" 已添加到笔记',
+    editTag: '编辑标签',
+    enterTagName: '输入标签名称',
+    tagName: '标签名称'
   }
 };
 
